@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="362c769f-c0a1-482b-bbed-7ac23ed4e7cd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/CommandController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/EventListenerCallback.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/Hawkeye.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/ObservationSpaceGetter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/PlayerEventListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/WebSocketServerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
-    </list>
+    <list default="true" id="362c769f-c0a1-482b-bbed-7ac23ed4e7cd" name="Changes" comment="1.0.0" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,11 +72,23 @@
       <workItem from="1700327373617" duration="3938000" />
       <workItem from="1700332756886" duration="6540000" />
       <workItem from="1700339314824" duration="10741000" />
-      <workItem from="1700486625703" duration="942000" />
+      <workItem from="1700486625703" duration="1465000" />
     </task>
+    <task id="LOCAL-00001" summary="1.0.0">
+      <created>1700488478827</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1700488478827</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="1.0.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.0.0" />
   </component>
 </project>
