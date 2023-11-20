@@ -1,0 +1,8 @@
+name: Hawkeye
+version: 1.2.0
+main: nmil.mceeg.plugin.Hawkeye
+commands:
+  hawkeye:
+    description: Configure Hawkeye plugin settings
+    usage: /<command> <or|mtd|ur> <value>
+api-version: 1.20
