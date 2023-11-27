@@ -26,6 +26,23 @@ public class ObservationSpaceGetter {
         data.put("Time", sdf.format(new Date()));
         data.put("GameTime", player.getWorld().getTime());
         switch (type) {
+            case "full":
+                if (event != null) {
+                    data.put("Event", event);
+                    data.put("Health",(int) player.getHealth());
+                    data.put("Hunger", player.getFoodLevel());
+                    data.put("Location", player.getLocation().toVector());
+                    data.put("View", getPlayerView(player));
+                    data.put("TargetBlock",getPlayerTargetBlock(player));
+                    data.put("TargetEntity",getPlayerTargetEntity(player));
+                    data.put("NearbyEntities",getNearbyEntities(player));
+                    data.put("Hot-bar",getPlayerHotbar(player));
+                    data.put("NearbyBlocks",getNearbyBlocks(player));
+                    data.put("Biome",getPlayerBiome(player));
+                    data.put("Inventory", getSimpleItemStacks(player.getInventory().getContents()));
+                    data.put("Equipments",getPlayerEquipment(player));
+                }
+                break;
             case "high":
                 data.put("Health",(int) player.getHealth());
                 data.put("Hunger", player.getFoodLevel());
@@ -43,24 +60,39 @@ public class ObservationSpaceGetter {
                 break;
 
 
-            case "event": //TBD
+            case "event-interact":
                 if (event != null) {
-                    data.put("Health",(int) player.getHealth());
-                    data.put("Hunger", player.getFoodLevel());
-                    data.put("Location", player.getLocation().toVector());
-                    data.put("View", getPlayerView(player));
+                    data.put("Event", event);
                     data.put("TargetBlock",getPlayerTargetBlock(player));
                     data.put("TargetEntity",getPlayerTargetEntity(player));
-                    data.put("NearbyEntities",getNearbyEntities(player));
-                    data.put("Hot-bar",getPlayerHotbar(player));
-                    data.put("NearbyBlocks",getNearbyBlocks(player));
-                    data.put("Biome",getPlayerBiome(player));
+                }
+                break;
+            case "event-block":
+                if (event != null) {
                     data.put("Event", event);
+                    data.put("TargetBlock",getPlayerTargetBlock(player));
+                    data.put("NearbyBlocks",getNearbyBlocks(player));
+                }
+                break;
+            case "event-item":
+                if (event != null) {
+                    data.put("Event", event);
+                    data.put("Hot-bar",getPlayerHotbar(player));
                     data.put("Inventory", getSimpleItemStacks(player.getInventory().getContents()));
                     data.put("Equipments",getPlayerEquipment(player));
                 }
                 break;
-
+            case "event-fight":
+                if (event != null) {
+                    data.put("Event", event);
+                    data.put("Health",(int) player.getHealth());
+                    data.put("Hunger", player.getFoodLevel());
+                    data.put("TargetEntity",getPlayerTargetEntity(player));
+                    data.put("NearbyEntities",getNearbyEntities(player));
+                    data.put("Hot-bar",getPlayerHotbar(player));
+                    data.put("Equipments",getPlayerEquipment(player));
+                }
+                break;
             default:
                 data.put("null", "null");
                 break;

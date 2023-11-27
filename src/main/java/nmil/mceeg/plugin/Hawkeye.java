@@ -12,17 +12,25 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
 import java.util.*;
 
 public class Hawkeye extends JavaPlugin implements Listener{
     private int OBSERVATION_RADIUS = 3;
     private int MAX_TARGET_DISTANCE = 5;
-    private long UPDATE_RATE = 8L;
+
+    private Long LOW_UPDATE_RATE = 40L;
+
+    private Long HIGH_UPDATE_RATE = 20L;
+
     private long DELAY = 0L;
 
     private Map<Player, BukkitRunnable[]> playerTasks = new HashMap<>();
-
+    private Map<Player, Long> playerLogCount = new HashMap<>();
+    //private long playerLogCount = 0L;
 
     private WebSocketServerController wsServerController;
     private ObservationSpaceGetter observationSpaceGetter;
@@ -34,8 +42,8 @@ public class Hawkeye extends JavaPlugin implements Listener{
         commandController = new CommandController(this);
         observationSpaceGetter = new ObservationSpaceGetter(this);
 
-        EventListenerCallback eventCallback = (player, eventInfo) -> {
-            sendPlayerLog(player, observationSpaceGetter.getPlayerObservationSpace(player, "event", eventInfo),"PLAYER_LOG_EVENT");
+        EventListenerCallback eventCallback = (player, eventInfo, type) -> {
+            sendPlayerLog(player, observationSpaceGetter.getPlayerObservationSpace(player, type, eventInfo),"PLAYER_LOG_EVENT");
         };
         PlayerEventListener playerEventListener = new PlayerEventListener(this, eventCallback);
         getServer().getPluginManager().registerEvents(this, this);
@@ -44,6 +52,53 @@ public class Hawkeye extends JavaPlugin implements Listener{
 
         getLogger().info("Hawkeye: onEnable is called!");
         startNewWebSocketServer("Main", new InetSocketAddress("localhost", 8887));
+        startServerPerformanceTask();
+        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Lag(), 100L, 1L);
+
+    }
+
+    private void startServerPerformanceTask() {
+        dataSendTask = new BukkitRunnable() {
+            @Override
+            public void run() {
+                sendServerPerformanceData();
+            }
+        };
+        dataSendTask.runTaskTimer(this, 0L, LOW_UPDATE_RATE);
+    }
+
+    private void sendServerPerformanceData()  {
+        Runtime runtime = Runtime.getRuntime();
+        long usedMemory = (runtime.totalMemory() - runtime.freeMemory()) / 1024 / 1024;
+        int onlinePlayers = Bukkit.getServer().getOnlinePlayers().size();
+        double serverTick = Lag.getTPS();
+
+        Collection<? extends Player> players = getServer().getOnlinePlayers();
+        int averagePing = 0;
+        if (!players.isEmpty()) {
+            int totalPing = 0;
+            for (Player player : players) {
+                totalPing += player.getPing();
+            }
+
+            averagePing = totalPing / players.size();
+        }
+        Map<String, Object> msgWrapper = new HashMap<>();
+        msgWrapper.put("title", "SERVER_STATUS");
+
+        Map<String, Object> performanceData = new HashMap<>();
+        performanceData.put("usedMemory", usedMemory);
+        performanceData.put("onlinePlayers", onlinePlayers);
+        performanceData.put("serverTick", serverTick);
+        performanceData.put("averagePing", averagePing);
+        msgWrapper.put("data", performanceData);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(msgWrapper);
+
+//        getLogger().info(json);
+
+        sendWebSocketMessage(json);
     }
 
     @EventHandler
@@ -62,16 +117,23 @@ public class Hawkeye extends JavaPlugin implements Listener{
                 sendPlayerLog(player, observationSpaceGetter.getPlayerObservationSpace(player, "high",null), "PLAYER_LOG_HIGH_FREQUENCY");
             }
         };
-        LOW_FREQUENCY_task.runTaskTimer(this, 0L, 20L); // 20 ticks
-        HIGH_FREQUENCY_task.runTaskTimer(this, 0L, 1L);  // 1 tick
+        LOW_FREQUENCY_task.runTaskTimer(this, 0L, LOW_UPDATE_RATE); // 20 ticks
+        HIGH_FREQUENCY_task.runTaskTimer(this, 0L, HIGH_UPDATE_RATE);  // 1 tick
         playerTasks.put(player, new BukkitRunnable[]{LOW_FREQUENCY_task, HIGH_FREQUENCY_task});
+        playerLogCount.put(player, 0L);
         sendPlayerLogin(player.getName());
     }
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        getLogger().info("Hawkeye: " + player.getName() + " left the game");
+        sendPlayerLogout(player);
+        Long currentValue = 0L;
+        if (playerLogCount.containsKey(player)) {
+            currentValue = playerLogCount.get(player);
+            playerLogCount.remove(player);
+        }
+        getLogger().info("Hawkeye: " + player.getName() + " left the game, sent " + currentValue + "Logs");
 
         if (playerTasks.containsKey(player)) {
             BukkitRunnable[] tasks = playerTasks.get(player);
@@ -79,7 +141,6 @@ public class Hawkeye extends JavaPlugin implements Listener{
             tasks[1].cancel();
             playerTasks.remove(player);
         }
-        sendPlayerLogout(player.getName());
     }
     private void startNewWebSocketServer(String usage, InetSocketAddress address) {
         wsServerController = new WebSocketServerController(usage, this, address );
@@ -92,6 +153,13 @@ public class Hawkeye extends JavaPlugin implements Listener{
         Map<String, Object> playerWrapper = new HashMap<>();
         playerWrapper.put("player", player.getName());
         playerWrapper.put("log", data);
+
+        if (playerLogCount.containsKey(player)) {
+            Long currentValue = playerLogCount.get(player);
+            currentValue++;
+            playerLogCount.put(player, currentValue);
+        }
+        //playerWrapper.put("total_count", currentValue);
 
         msgWrapper.put("data", playerWrapper);
 
@@ -109,10 +177,14 @@ public class Hawkeye extends JavaPlugin implements Listener{
         String json = gson.toJson(msgWrapper);
         sendWebSocketMessage(json);
     }
-    private void sendPlayerLogout(String playerName) {
+    private void sendPlayerLogout(Player player) {
         Map<String, Object> msgWrapper = new HashMap<>();
         msgWrapper.put("title", "SERVER_PLAYER_LOGOUT");
-        msgWrapper.put("data", playerName);
+        msgWrapper.put("data", player.getName());
+        if (playerLogCount.containsKey(player)) {
+            Long currentValue = playerLogCount.get(player);
+            msgWrapper.put("total_log", currentValue);
+        }
         Gson gson = new Gson();
         String json = gson.toJson(msgWrapper);
         sendWebSocketMessage(json);
@@ -151,9 +223,7 @@ public class Hawkeye extends JavaPlugin implements Listener{
     public void setMAX_TARGET_DISTANCE(int MAX_TARGET_DISTANCE) {
         this.MAX_TARGET_DISTANCE = MAX_TARGET_DISTANCE;
     }
-    public void setUPDATE_RATE(long UPDATE_RATE) {
-        this.UPDATE_RATE = UPDATE_RATE;
-    }
+
     public void setDELAY(long DELAY) {
         this.DELAY = DELAY;
     }
@@ -163,8 +233,20 @@ public class Hawkeye extends JavaPlugin implements Listener{
     public int getMAX_TARGET_DISTANCE() {
         return MAX_TARGET_DISTANCE;
     }
-    public long getUPDATE_RATE() {
-        return UPDATE_RATE;
+    public long getLOW_UPDATE_RATE() {
+        return LOW_UPDATE_RATE;
+    }
+
+    public void setLOW_UPDATE_RATE(long LOW_UPDATE_RATE) {
+        this.LOW_UPDATE_RATE = LOW_UPDATE_RATE;
+    }
+
+    public long getHIGH_UPDATE_RATE() {
+        return HIGH_UPDATE_RATE;
+    }
+
+    public void setHIGH_UPDATE_RATE(long HIGH_UPDATE_RATE) {
+        this.HIGH_UPDATE_RATE = HIGH_UPDATE_RATE;
     }
     public long getDELAY() {
         return DELAY;

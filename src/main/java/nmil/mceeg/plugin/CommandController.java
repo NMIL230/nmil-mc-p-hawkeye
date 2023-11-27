@@ -23,9 +23,13 @@ public class CommandController {
                             plugin.setMAX_TARGET_DISTANCE(Integer.parseInt(args[1]));
                             sender.sendMessage("MAX_TARGET_DISTANCE set to " + Integer.parseInt(args[1]));
                             break;
-                        case "ur":
-                            plugin.setUPDATE_RATE(Long.parseLong(args[1]));
-                            sender.sendMessage("UPDATE_RATE set to " + Long.parseLong(args[1]));
+                        case "hur":
+                            plugin.setHIGH_UPDATE_RATE(Long.parseLong(args[1]));
+                            sender.sendMessage("HIGH_UPDATE_RATE set to " + Long.parseLong(args[1]));
+                            break;
+                        case "lur":
+                            plugin.setLOW_UPDATE_RATE(Long.parseLong(args[1]));
+                            sender.sendMessage("LOW_UPDATE_RATE set to " + Long.parseLong(args[1]));
                             break;
                         default:
                             sender.sendMessage("Invalid configuration option");
