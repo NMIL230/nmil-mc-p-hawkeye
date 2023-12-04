@@ -22,9 +22,9 @@ public class Hawkeye extends JavaPlugin implements Listener{
     private int OBSERVATION_RADIUS = 3;
     private int MAX_TARGET_DISTANCE = 5;
 
-    private Long LOW_UPDATE_RATE = 40L;
+    private Long LOW_UPDATE_RATE = 20L;
 
-    private Long HIGH_UPDATE_RATE = 20L;
+    private Long HIGH_UPDATE_RATE = 1L;
 
     private long DELAY = 0L;
 
