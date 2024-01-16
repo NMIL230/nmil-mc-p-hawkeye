@@ -1,6 +1,5 @@
-package nmil.mceeg.plugin;
+package nmil.mceeg.plugin.hawkeye;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 public class CommandController {

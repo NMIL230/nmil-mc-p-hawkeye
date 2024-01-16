@@ -1,4 +1,4 @@
-package nmil.mceeg.plugin;
+package nmil.mceeg.plugin.hawkeye;
 
 import com.google.gson.Gson;
 import org.bukkit.Bukkit;
@@ -12,9 +12,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.InetSocketAddress;
 import java.util.*;
 
@@ -50,7 +47,7 @@ public class Hawkeye extends JavaPlugin implements Listener{
 
         getServer().getPluginManager().registerEvents(playerEventListener, this);
 
-        getLogger().info("Hawkeye: onEnable is called!");
+        getLogger().info("Hawkeye loaded: onEnable is called!");
         startNewWebSocketServer("Main", new InetSocketAddress("localhost", 8887));
         startServerPerformanceTask();
         Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Lag(), 100L, 1L);

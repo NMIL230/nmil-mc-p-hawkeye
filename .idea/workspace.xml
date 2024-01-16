@@ -4,10 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="362c769f-c0a1-482b-bbed-7ac23ed4e7cd" name="Changes" comment="v0.2.1">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="362c769f-c0a1-482b-bbed-7ac23ed4e7cd" name="Changes" comment="v0.2.2">
+      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/BlockBreakListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/BuildMaster.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/PlayerSpawnListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/CommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/CommandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/EventListenerCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/EventListenerCallback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/Hawkeye.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/Hawkeye.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/Lag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/Lag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/ObservationSpaceGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/ObservationSpaceGetter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/PlayerEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/PlayerEventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/WebSocketServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/WebSocketServerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +105,7 @@
       <workItem from="1700853646613" duration="13222000" />
       <workItem from="1700945719067" duration="19726000" />
       <workItem from="1701673588098" duration="409000" />
-      <workItem from="1705000412654" duration="3083000" />
+      <workItem from="1705000412654" duration="11713000" />
     </task>
     <task id="LOCAL-00001" summary="1.0.0">
       <created>1700488478827</created>
@@ -119,7 +128,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701673642039</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="v0.2.2">
+      <option name="closed" value="true" />
+      <created>1705010160972</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705010160972</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,6 +146,7 @@
     <MESSAGE value="1.0.0" />
     <MESSAGE value="v0.2.0" />
     <MESSAGE value="v0.2.1" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.2.1" />
+    <MESSAGE value="v0.2.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.2.2" />
   </component>
 </project>

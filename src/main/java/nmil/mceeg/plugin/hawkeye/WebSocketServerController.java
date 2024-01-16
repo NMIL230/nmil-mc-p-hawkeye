@@ -1,4 +1,4 @@
-package nmil.mceeg.plugin;
+package nmil.mceeg.plugin.hawkeye;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;

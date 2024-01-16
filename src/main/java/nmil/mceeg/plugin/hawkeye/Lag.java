@@ -1,4 +1,4 @@
-package nmil.mceeg.plugin;
+package nmil.mceeg.plugin.hawkeye;
 
 public class Lag
         implements Runnable

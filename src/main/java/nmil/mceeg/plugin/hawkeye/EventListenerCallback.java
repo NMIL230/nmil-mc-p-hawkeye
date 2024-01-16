@@ -1,4 +1,4 @@
-package nmil.mceeg.plugin;
+package nmil.mceeg.plugin.hawkeye;
 import org.bukkit.entity.Player;
 
 public interface EventListenerCallback {

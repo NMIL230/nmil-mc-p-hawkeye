@@ -1,6 +1,6 @@
 name: Hawkeye
 version: 1.2.0
-main: nmil.mceeg.plugin.Hawkeye
+main: nmil.mceeg.plugin.hawkeye.Hawkeye
 commands:
   hawkeye:
     description: Configure Hawkeye plugin settings
