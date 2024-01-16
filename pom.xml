@@ -47,7 +47,8 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>Hawkeye</finalName>
+<!--        <finalName>Hawkeye</finalName>-->
+        <finalName>BuildMaster</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

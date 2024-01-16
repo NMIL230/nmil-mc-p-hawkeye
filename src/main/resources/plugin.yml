@@ -1,8 +1,14 @@
-name: Hawkeye
-version: 1.2.0
-main: nmil.mceeg.plugin.hawkeye.Hawkeye
-commands:
-  hawkeye:
-    description: Configure Hawkeye plugin settings
-    usage: /<command> <or|mtd|ur> <value>
+#name: Hawkeye
+#version: 1.2.0
+#main: nmil.mceeg.plugin.hawkeye.Hawkeye
+#commands:
+#  hawkeye:
+#    description: Configure Hawkeye plugin settings
+#    usage: /<command> <or|mtd|ur> <value>
+#api-version: 1.20
+
+
+name: BuildMaster
+version: 0.0.1
+main: nmil.mceeg.plugin.buildmaster.BuildMaster
 api-version: 1.20
