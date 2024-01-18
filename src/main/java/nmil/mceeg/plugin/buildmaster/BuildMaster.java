@@ -3,47 +3,62 @@ package nmil.mceeg.plugin.buildmaster;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.event.Listener;
 
-public class BuildMaster extends JavaPlugin implements Listener {
-    private Location lobby_location;
-    private Location platform_location;
-    private Location[] difficultyLever_locations;
-    private Location saveButton_location;
-    private Location tpLobbyButton_location;
+import java.util.Objects;
 
-    private int difficulty;
+public class BuildMaster extends JavaPlugin implements CommandExecutor {
+    private Location lobbyLocation;
+    private Location platformSpawnLocation;
+    private Location platformCenterLocation;
+    private Location platformViewLocation;
+    private Location[] difficultyLeverLocations;
+    private Location tpLobbyButtonLocation;
+    private Location platformRightButtonLocation;
+
+    private  BlockIO blockIO;
+    private TextDisplay display;
+    private GameStateMachine gameStateMachine;
+
 
     private void getLocations() {
         World world = Bukkit.getWorld("Gelazkor");
         if (world != null) {
-            setLobby_location(new Location(world, 3772, 123, 4166, 90, 0));
-            setPlatform_location(new Location(world, 2614, 141, 2462, -90, 0));
-
-            setSaveButton_location(new Location(world, 2604, 142, 2456));
-            setTpLobbyButton_location(new Location(world, 2604, 142, 2457));
-
+            setLobbyLocation(new Location(world, 3772, 123, 4166, 90, 0));
+            setPlatformSpawnLocation(new Location(world, 2605, 142, 2462, -90, 0));
+            setPlatformCenterLocation(new Location(world, 2614, 141, 2462));
+            setPlatformViewLocation(new Location(world, 2608, 142, 2457));
+            setTpLobbyButtonLocation(new Location(world, 2604, 142, 2457));
+            setPlatformRightButtonLocation(new Location(world, 2604, 142, 2456));
             int x = 3763; int y = 125; int z = 4171;
             Location[] locations = new Location[10];
             for (int i = 0; i < locations.length; i++) {
                 locations[i] = new Location(world, x, y, z - i, 0, 0);
             }
-            setDifficultyLever_locations(locations);
-            getLogger().info("getLocations loaded: " + lobby_location + platform_location);
-
+            setDifficultyLeverLocations(locations);
+            getLogger().info("getLocations loaded: " + lobbyLocation + platformSpawnLocation);
         }
-
     }
 
 
     @Override
     public void onEnable() {
         getLocations();
-//        getServer().getPluginManager().registerEvents(this, this);
-        getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
-        getServer().getPluginManager().registerEvents(new PlayerSpawnListener(lobby_location), this);
-        getServer().getPluginManager().registerEvents(new InteractionListener(this), this);
+
+        blockIO = new BlockIO();
+        display = new TextDisplay();
+        gameStateMachine = new GameStateMachine(this);
+
+        //getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(new PlayerIOListener(this, gameStateMachine), this);
+        getServer().getPluginManager().registerEvents(new InGameListener(this, gameStateMachine), this);
+        getServer().getPluginManager().registerEvents(new OutGameListener(this, gameStateMachine), this);
+
+        Objects.requireNonNull(this.getCommand("bm")).setExecutor(this);
 
         getLogger().info("BuildMaster loaded!");
 
@@ -52,59 +67,138 @@ public class BuildMaster extends JavaPlugin implements Listener {
     public void onDisable() {
 
      }
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (cmd.getName().equalsIgnoreCase("bm")) {
+            if (args.length < 1) {
+                sender.sendMessage("Usage: /bm <option>");
+                return true;
+            }
 
+            String option = args[0];
 
+            switch (option.toLowerCase()) {
+                case "-op":
+                    if (!(sender instanceof Player) || !sender.isOp()) {
+                        sender.sendMessage("This command can only be used by an OP.");
+                        return true;
+                    }
+                    if (args.length == 2) {
+                        if (args[1].equalsIgnoreCase("clear")) {
+                            blockIO.clearArea(this.getPlatformCenterLocation());
+                        }
+                        else{
+                            sender.sendMessage("Invalid action. Use 'save' or 'load'.");
+                        }
+                        break;
+                    }
+                    if (args.length < 3) {
+                        sender.sendMessage("Usage: /bm -op <save|load> <filename>");
+                        return true;
+                    }
+                    String action = args[1];
+                    String fileName = args[2];
+                    if (action.equalsIgnoreCase("save")) {
+                        if(blockIO.saveStructureToFile(this.getPlatformCenterLocation(), fileName)){
+                            display.sendChatToAllPlayers("Structure saved to file: " + fileName + ".txt","green");
+                        }
+                    } else if (action.equalsIgnoreCase("load")) {
+                        if (blockIO.loadStructureFromFile(this.getPlatformCenterLocation(), fileName)) {
+                            display.sendChatToAllPlayers("Structure loaded from file: " + fileName + ".txt","green");
+                        }
+                    } else if (action.equalsIgnoreCase("clear")) {
+                        blockIO.clearArea(this.getPlatformCenterLocation());
+                    }
+                    else{
+                        sender.sendMessage("Invalid action. Use 'save' or 'load'.");
+                    }
+                    break;
 
+                case "lobby":
+                    if (sender instanceof Player) {
+                        Player player = (Player) sender;
+                        player.teleport(this.getLobbyLocation());
+                    } else {
+                        sender.sendMessage("This command can only be used by a player.");
+                    }
+                    break;
 
+                case "help":
+                    sender.sendMessage("Available commands:");
+                    sender.sendMessage("/bm lobby - Teleport to the lobby");
+                    sender.sendMessage("/bm help - Display this help message");
+                    sender.sendMessage("/bm -op clear - Clear structure (OP only)");
+                    sender.sendMessage("/bm -op save <filename> - Save structure (OP only)");
+                    sender.sendMessage("/bm -op load <filename> - Load structure (OP only)");
+                    break;
 
+                default:
+                    sender.sendMessage("Unknown command. Use '/bm help' for a list of commands.");
+                    break;
+            }
 
-    public Location getLobby_location() {
-        return lobby_location;
+            return true;
+        }
+
+        return false;
     }
 
-    public void setLobby_location(Location lobby_location) {
-        this.lobby_location = lobby_location;
+    public Location getLobbyLocation() {
+        return lobbyLocation;
     }
 
-    public Location getPlatform_location() {
-        return platform_location;
+    public void setLobbyLocation(Location lobbyLocation) {
+        this.lobbyLocation = lobbyLocation;
     }
 
-    public void setPlatform_location(Location platform_location) {
-        this.platform_location = platform_location;
+    public Location getPlatformSpawnLocation() {
+        return platformSpawnLocation;
     }
 
-    public Location[] getDifficultyLever_locations() {
-        return difficultyLever_locations;
+    public void setPlatformSpawnLocation(Location platformSpawnLocation) {
+        this.platformSpawnLocation = platformSpawnLocation;
     }
 
-    public void setDifficultyLever_locations(Location[] difficultyLever_locations) {
-        this.difficultyLever_locations = difficultyLever_locations;
+    public Location[] getDifficultyLeverLocations() {
+        return difficultyLeverLocations;
     }
 
-    public int getDifficulty() {
-        return difficulty;
+    public void setDifficultyLeverLocations(Location[] difficultyLeverLocations) {
+        this.difficultyLeverLocations = difficultyLeverLocations;
     }
 
-    public void setDifficulty(int difficulty) {
-        this.difficulty = difficulty;
+
+
+
+    public Location getTpLobbyButtonLocation() {
+        return tpLobbyButtonLocation;
     }
 
-    public Location getSaveButton_location() {
-        return saveButton_location;
+    public void setTpLobbyButtonLocation(Location tpLobbyButtonLocation) {
+        this.tpLobbyButtonLocation = tpLobbyButtonLocation;
     }
 
-    public void setSaveButton_location(Location saveButton_location) {
-        this.saveButton_location = saveButton_location;
+    public Location getPlatformCenterLocation() {
+        return platformCenterLocation;
     }
 
-    public Location getTpLobbyButton_location() {
-        return tpLobbyButton_location;
+    public void setPlatformCenterLocation(Location platformCenterLocation) {
+        this.platformCenterLocation = platformCenterLocation;
+    }
+    public Location getPlatformViewLocation() {
+        return platformViewLocation;
     }
 
-    public void setTpLobbyButton_location(Location tpLobbyButton_location) {
-        this.tpLobbyButton_location = tpLobbyButton_location;
+    public void setPlatformViewLocation(Location platformViewLocation) {
+        this.platformViewLocation = platformViewLocation;
     }
 
+    public Location getPlatformRightButtonLocation() {
+        return platformRightButtonLocation;
+    }
+
+    public void setPlatformRightButtonLocation(Location platformRightButtonLocation) {
+        this.platformRightButtonLocation = platformRightButtonLocation;
+    }
 
 }
