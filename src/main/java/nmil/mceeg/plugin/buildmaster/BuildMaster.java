@@ -36,9 +36,9 @@ public class BuildMaster extends JavaPlugin implements CommandExecutor {
         World world = Bukkit.getWorld("Gelazkor");
         if (world != null) {
             setLobbyLocation(new Location(world, 3772, 123, 4166, 90, 0));
-            setPlatformSpawnLocation(new Location(world, 2605, 146, 2462, -90, 0));
+            setPlatformSpawnLocation(new Location(world, 2605, 143, 2462, -90, 0));
             setPlatformCenterLocation(new Location(world, 2614, 141, 2462));
-            setPlatformViewLocation(new Location(world, 2608, 142, 2457));
+            setPlatformViewLocation(new Location(world, 2608, 142, 2457,-90, 0));
             setTpLobbyButtonLocation(new Location(world, 2604, 142, 2457));
             setPlatformRightButtonLocation(new Location(world, 2604, 142, 2456));
             setGoldenPlateLocation(new Location(world, 3765, 123, 4155));

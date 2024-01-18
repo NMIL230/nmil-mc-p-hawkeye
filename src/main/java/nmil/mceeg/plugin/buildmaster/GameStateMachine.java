@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 public class GameStateMachine {
-    private int GS0_PreGame_Countdown = 10;
+    private int GS0_PreGame_Countdown = 3; //10s
     private int GS1_Load_Countdown = 1;
-    private int GS2_Observe_Countdown = 15;
-    private int GS3_Build_Countdown = 30;
-    private int GS4_Judge_Countdown = 6;
+    private int GS2_Observe_Countdown = 3; //15s
+    private int GS3_Build_Countdown = 3800; //30s
+    private int GS4_Judge_Countdown = 6; //6s
     private int GAME_OVER_Countdown = 10;
 
     enum GameState {
@@ -50,10 +50,12 @@ public class GameStateMachine {
     public static class ItemCountsPair{
         int original;
         int current;
+        int slot;
 
-        public ItemCountsPair(int original, int current) {
+        public ItemCountsPair(int original, int current, int slot) {
             this.original = original;
             this.current = current;
+            this.slot = slot;
         }
     }
 
@@ -187,14 +189,15 @@ public class GameStateMachine {
         this.score = blockIO.judge(plugin.getPlatformCenterLocation(),mapDifficultyToFileName(difficulty));
 //        display.sendChatToAllPlayers("submitBuild: score: " + score, "gold");
 
-        gameRecord.updateHighestLevel(difficulty);
         gameRecord.updateLevelRecord(difficulty, score >= 80, score);
 
 //        display.sendChatToAllPlayers("handleScore: score: " + score, "light_purple");
 
         if (score == 100) {
+            gameRecord.updateHighestLevel(difficulty);
             display.displayTitleToPlayer(player, "Passed","Perfect",  "blue");
         } else if (score >= 80){
+            gameRecord.updateHighestLevel(difficulty);
             display.displayTitleToPlayer(player, "Passed","Score: " + score + "%",  "green");
         } else {
             display.displayTitleToPlayer(player, "Failed","Score: " + score + "%",  "yellow");
@@ -274,7 +277,7 @@ public class GameStateMachine {
             display.displayTitleToPlayer(player, String.valueOf(countdown), "Teleporting", "yellow");
         }
         if (countdown < 7) {
-            display.displayTitleToPlayer(player, String.valueOf(countdown), "Teleporting You to lobby " + countdown, "yellow");
+            display.displayActionBarToPlayer(player,"Teleporting You to lobby " +  countdown, "yellow");
         }
         countdown--;
     }

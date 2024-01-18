@@ -5,6 +5,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import java.io.*;
 import java.util.HashMap;
@@ -170,24 +171,29 @@ public class BlockIO {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
-
+            int slot = 0;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 4) {
                     Material material = Material.getMaterial(parts[3]);
                     if (material != null && material != Material.AIR) {
-                        ItemCounts.put(material, new GameStateMachine.ItemCountsPair(
-                                ItemCounts.getOrDefault(material, new GameStateMachine.ItemCountsPair(0,0)).original + 1,
-                                ItemCounts.getOrDefault(material, new GameStateMachine.ItemCountsPair(0,0)).original + 1)
-                        );
+                        if (ItemCounts.containsKey(material)) {
+                            GameStateMachine.ItemCountsPair pair = ItemCounts.get(material);
+                            pair.current++;
+                            pair.original++;
+                            ItemCounts.put(material, pair);
+                        } else {
+                            ItemCounts.put(material, new GameStateMachine.ItemCountsPair(1,1,slot++));
+                        }
                     }
                 }
             }
-            ItemCounts.put(Material.FIREWORK_ROCKET, new GameStateMachine.ItemCountsPair(1,1));
+            ItemCounts.put(Material.FIREWORK_ROCKET, new GameStateMachine.ItemCountsPair(1,1,8));
 
             for (Map.Entry<Material, GameStateMachine.ItemCountsPair> entry : ItemCounts.entrySet()) {
-                player.getInventory().addItem(new ItemStack(entry.getKey(), entry.getValue().original));
+                player.getInventory().setItem(entry.getValue().slot ,new ItemStack(entry.getKey(), entry.getValue().original));
             }
+
 
         } catch (IOException e) {
             display.sendChatToPlayer(player, "Error reading file: " + fileName, "red");

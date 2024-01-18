@@ -57,7 +57,7 @@ public class InGameListener implements Listener {
                     }
                 } else if (pair.current <= 0){
                     pair.current++;
-                    player.getInventory().addItem(new ItemStack(breakedMaterial, 1));
+                    player.getInventory().setItem(pair.slot, new ItemStack(breakedMaterial, 1));
                 } else {
                     pair.current = pair.original;
                     for (ItemStack itemStack : player.getInventory().getContents()) {
@@ -101,15 +101,17 @@ public class InGameListener implements Listener {
             }
 
             playerItemCounts.computeIfPresent(placedMaterial, (key, pair) -> {
-                if (pair.current > 1) {
-                    pair.current--;
+                if (pair.current > 0) {
+                    pair.current--; //real time update!!
                     player.getInventory().clear();
-                    for (Map.Entry<Material, GameStateMachine.ItemCountsPair> entry : playerItemCounts.entrySet()) {
-                        player.getInventory().addItem(new ItemStack(entry.getKey(), entry.getValue().current));
+                    //give all blocks again
+                    for (Map.Entry<Material, GameStateMachine.ItemCountsPair> entryPair : playerItemCounts.entrySet()) {
+
+                        if ( placedMaterial.equals(entryPair.getKey()) && entryPair.getValue().current ==  0) {
+                            continue;
+                        }
+                        player.getInventory().setItem(entryPair.getValue().slot, new ItemStack(entryPair.getKey(), entryPair.getValue().current));
                     }
-                } else if (pair.current == 1) {
-                    pair.current--;
-                    player.getInventory().remove(placedMaterial);
                 } else {
                     event.setCancelled(true);
                     player.sendMessage("You've run out of " + placedMaterial.name() + "!");

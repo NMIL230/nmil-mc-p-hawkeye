@@ -11,6 +11,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.Material;
 
 public class OutGameListener implements Listener {
     private BuildMaster plugin;
@@ -69,6 +70,23 @@ public class OutGameListener implements Listener {
 
             }
 
+            if (action == Action.RIGHT_CLICK_BLOCK || action == Action.LEFT_CLICK_BLOCK) {
+                Block clickedBlock = event.getClickedBlock();
+                if (clickedBlock != null) {
+                    Material clickedMaterial = clickedBlock.getType();
+                    if (isSign(clickedMaterial) && !player.isOp()) {
+                        event.setCancelled(true);
+                    }
+                }
+                if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+                    Material itemInHand = event.getMaterial();
+                    if (itemInHand == Material.WATER_BUCKET || itemInHand == Material.LAVA_BUCKET) {
+                        event.setCancelled(true);
+                    }
+                }
+            }
+
+
             if (blockData instanceof Switch) {
                 Location blockLocation = block.getLocation();
                 // TP to LOBBY
@@ -117,4 +135,19 @@ public class OutGameListener implements Listener {
 
         return 0;
     }
+
+    private boolean isSign(Material material) {
+        return material == Material.OAK_SIGN || material == Material.SPRUCE_SIGN ||
+                material == Material.BIRCH_SIGN || material == Material.JUNGLE_SIGN ||
+                material == Material.ACACIA_SIGN || material == Material.DARK_OAK_SIGN ||
+                material == Material.CRIMSON_SIGN || material == Material.WARPED_SIGN ||
+                material == Material.OAK_WALL_SIGN || material == Material.SPRUCE_WALL_SIGN ||
+                material == Material.BIRCH_WALL_SIGN || material == Material.JUNGLE_WALL_SIGN ||
+                material == Material.ACACIA_WALL_SIGN || material == Material.DARK_OAK_WALL_SIGN ||
+                material == Material.MANGROVE_WALL_SIGN || material == Material.WARPED_WALL_SIGN ||
+                material == Material.CHERRY_WALL_SIGN || material == Material.CRIMSON_WALL_SIGN ||
+                material == Material.BAMBOO_WALL_HANGING_SIGN;
+
+    }
+
 }
