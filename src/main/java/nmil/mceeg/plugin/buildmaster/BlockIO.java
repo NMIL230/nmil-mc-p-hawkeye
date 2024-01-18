@@ -124,7 +124,6 @@ public class BlockIO {
         if (world == null) {
             return 0;
         }
-        display.sendChatToAllPlayers("judge called", "dark_aqua");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;

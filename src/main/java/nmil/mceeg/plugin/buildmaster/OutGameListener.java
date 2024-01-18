@@ -5,6 +5,8 @@ import org.bukkit.block.data.type.Switch;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
 import org.bukkit.block.Block;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.Location;
@@ -21,8 +23,10 @@ public class OutGameListener implements Listener {
         this.gameStateMachine = gameStateMachine;
     }
 
-
-
+    @EventHandler
+    public void onCreatureSpawn(CreatureSpawnEvent event) {
+        event.setCancelled(true);
+    }
 
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
@@ -38,9 +42,33 @@ public class OutGameListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Block block = event.getClickedBlock();
+        Action action = event.getAction();
 
         if (block != null) {
             BlockData blockData = block.getBlockData();
+
+            // golden plate
+            if (action == Action.PHYSICAL) {
+                if (event.getClickedBlock().getLocation().equals(plugin.getGoldenPlateLocation())) {
+                    plugin.playerTag.computeIfPresent(player, (k, v)->{
+                        if (v.equals("victor")) {
+                            player.teleport(plugin.getOutsideLobbyLocation());
+                            player.sendTitle("Victor","§6" + "Peak to world, who's might?", 10, 70, 20);
+                        }
+                        return v;
+                    });
+                } else if (event.getClickedBlock().getLocation().equals(plugin.getOutsidePlateLocation())){
+                    plugin.playerTag.computeIfPresent(player, (k, v)->{
+                        if (v.equals("victor")) {
+                            player.teleport(plugin.getLobbyLocation());
+                            player.sendTitle("Welcome Home","§6" + "Home at last, who's delight?", 10, 70, 20);
+                        }
+                        return v;
+                    });
+                }
+
+            }
+
             if (blockData instanceof Switch) {
                 Location blockLocation = block.getLocation();
                 // TP to LOBBY

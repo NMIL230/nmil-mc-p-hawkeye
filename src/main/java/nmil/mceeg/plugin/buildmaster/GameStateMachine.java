@@ -11,12 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 public class GameStateMachine {
-
-
     private int GS0_PreGame_Countdown = 10;
     private int GS1_Load_Countdown = 1;
-    private int GS2_Observe_Countdown = 3;
-    private int GS3_Build_Countdown = 10;
+    private int GS2_Observe_Countdown = 15;
+    private int GS3_Build_Countdown = 30;
     private int GS4_Judge_Countdown = 6;
     private int GAME_OVER_Countdown = 10;
 
@@ -27,10 +25,13 @@ public class GameStateMachine {
     private TextDisplay display;
     private  BlockIO blockIO;
 
+    private GameRecordIO gameRecordIO;
+
     public GameStateMachine(BuildMaster plugin) {
         this.plugin = plugin;
         this.display = new TextDisplay();
         this.blockIO = new BlockIO();
+        this.gameRecordIO = new GameRecordIO();
         currentGameState = GameState.GAME_OVER;
     }
 
@@ -123,11 +124,13 @@ public class GameStateMachine {
     // Logic for handling GS1 phase
     private void handleGS1() {
         if (countdown == GS1_Load_Countdown) {
+
+            gameRecord.addLevelRecord(difficulty);
+
             display.sendChatToPlayer(player, "Game start!", "yellow");
             player.teleport(plugin.getPlatformSpawnLocation());
             String fileName = mapDifficultyToFileName(difficulty);
             blockIO.loadStructureFromFile(plugin.getPlatformCenterLocation(), fileName);
-            gameRecord.addLevelRecord(difficulty);
             clearPlayerInventory(player);
         }
         else if (countdown == 0) {
@@ -175,11 +178,12 @@ public class GameStateMachine {
     void submitBuild() {
 
         playerItemCounts.clear();
+        clearPlayerInventory(player);
 
         currentGameState = GameState.GS4_Judge;
         countdown = GS4_Judge_Countdown;
 
-        display.sendChatToPlayer(player, "submitBuild: currentGameState: " + currentGameState, "gold");
+        display.sendChatToPlayer(player, "Building Submitted", "yellow");
         this.score = blockIO.judge(plugin.getPlatformCenterLocation(),mapDifficultyToFileName(difficulty));
 //        display.sendChatToAllPlayers("submitBuild: score: " + score, "gold");
 
@@ -245,17 +249,34 @@ public class GameStateMachine {
         if (countdown == GAME_OVER_Countdown){
             blockIO.clearArea(plugin.getPlatformCenterLocation());
             score = -1;
+            clearPlayerInventory(player);
             if (gameRecord != null) {
-                String color =  gameRecord.getHighestLevel() == 10 ? "blue" : "red";
-                display.displayTitleToPlayer(player, "Game Over", "Best Score: Difficulty " + gameRecord.getHighestLevel(), color);
-                display.sendChatToAllPlayers(player.getName() + " finished Build Master, Best Score: Difficulty " + gameRecord.getHighestLevel(), "green");
+                if (gameRecord.getHighestLevel() == 10) {
+                    display.displayTitleToPlayer(player, "Victor", "Best Score: Difficulty " + gameRecord.getHighestLevel(), "blue");
+                    display.sendChatToAllPlayers(player.getName() + " is a victor ", "green");
+                    //tag
+                    plugin.playerTag.put(player, "victor");
+                } else {
+                    display.displayTitleToPlayer(player, "Game Over", "Best Score: Difficulty " + gameRecord.getHighestLevel(), "red");
+                    display.sendChatToAllPlayers(player.getName() + " finished Build Master, Best Score: Difficulty " + gameRecord.getHighestLevel(), "green");
+                }
+
+                // record
+                gameRecordIO.saveRecordToFile(gameRecord);
             }
         }
         if (countdown == 0){
-            display.sendChatToPlayer(player,"Teleporting You to lobby","gold");
+            display.sendChatToPlayer(player,"Teleporting You to lobby","yellow");
             player.teleport(plugin.getLobbyLocation());
             gameTask.cancel();
         }
+        if (countdown < 4) {
+            display.displayTitleToPlayer(player, String.valueOf(countdown), "Teleporting", "yellow");
+        }
+        if (countdown < 7) {
+            display.displayTitleToPlayer(player, String.valueOf(countdown), "Teleporting You to lobby " + countdown, "yellow");
+        }
+        countdown--;
     }
 
     public void endGameOP() {
@@ -282,7 +303,7 @@ public class GameStateMachine {
     public void onPlayerLeave(Player player, Location center) {
         playerLeft = true;
         new BukkitRunnable() {
-            int countdown = 10;
+            int countdown = 5;
 
             @Override
             public void run() {
@@ -294,7 +315,7 @@ public class GameStateMachine {
                         this.cancel();
                     }
                 } else {
-                    handleGameOver();
+                    endGamePlayer();
                     this.cancel();
                 }
             }

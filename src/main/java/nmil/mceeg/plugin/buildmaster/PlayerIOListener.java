@@ -28,7 +28,11 @@ public class PlayerIOListener implements Listener {
         Player player = event.getPlayer();
         if (!player.isOp()) {
             player.teleport(spawnLocation);
+            plugin.playerTag.computeIfAbsent(player, k -> "regular");
+        } else {
+            plugin.playerTag.put(player, "victor");
         }
+
         display.sendChatToPlayer(player,"Build Master: Welcome! Use '/bm help' for a list of commands.","aqua");
 
     }
