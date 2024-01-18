@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 public class GameStateMachine {
-    private int GS0_PreGame_Countdown = 3; //10s
-    private int GS1_Load_Countdown = 1;
-    private int GS2_Observe_Countdown = 3; //15s
-    private int GS3_Build_Countdown = 3800; //30s
-    private int GS4_Judge_Countdown = 6; //6s
-    private int GAME_OVER_Countdown = 10;
+    private final int GS0_PreGame_Countdown = 10; //10s
+    private final int GS1_Load_Countdown = 1;
+    private final int GS2_Observe_Countdown = 15; //15s
+    private final int GS3_Build_Countdown = 30; //30s
+    private final int GS4_Judge_Countdown = 6; //6s
+    private final int GAME_OVER_Countdown = 10;
 
     enum GameState {
         GS0_PreGame, GS1_Load, GS2_Observe, GS3_Build, GS4_Judge, GAME_OVER
@@ -26,6 +26,7 @@ public class GameStateMachine {
     private  BlockIO blockIO;
 
     private GameRecordIO gameRecordIO;
+    public boolean playerLeft = false;
 
     public GameStateMachine(BuildMaster plugin) {
         this.plugin = plugin;
@@ -64,6 +65,9 @@ public class GameStateMachine {
         this.player = player;
         this.gameRecord = new GameRecord(player.getName());
         this.difficulty = difficulty;
+
+        playerLeft = false;
+
         blockIO.clearArea(plugin.getPlatformCenterLocation());
 
         display.sendChatToAllPlayers(player.getName() + " joined Build Master, Level: " + difficulty, "green");
@@ -131,6 +135,7 @@ public class GameStateMachine {
 
             display.sendChatToPlayer(player, "Game start!", "yellow");
             player.teleport(plugin.getPlatformSpawnLocation());
+            playerLeft = false;
             String fileName = mapDifficultyToFileName(difficulty);
             blockIO.loadStructureFromFile(plugin.getPlatformCenterLocation(), fileName);
             clearPlayerInventory(player);
@@ -301,7 +306,6 @@ public class GameStateMachine {
         countdown = GAME_OVER_Countdown;
     }
 
-    public boolean playerLeft = false;
 
     public void onPlayerLeave(Player player, Location center) {
         playerLeft = true;
