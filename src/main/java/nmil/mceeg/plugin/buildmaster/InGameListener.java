@@ -76,41 +76,35 @@ public class InGameListener implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
-
         if (!player.isOp()) {
             if (gameStateMachine.getCurrentGameState() != GameStateMachine.GameState.GS3_Build) {
                 event.setCancelled(true);
                 player.sendMessage("You are not allowed to place blocks!");
                 return;
             }
-
             if (!isInBuildArea(event.getBlock().getLocation(), plugin.getPlatformCenterLocation())) {
                 event.setCancelled(true);
                 player.sendMessage("You can only place blocks within the building area!");
                 return;
             }
-
             Material placedMaterial = event.getBlock().getType();
             Map<Material, GameStateMachine.ItemCountsPair> playerItemCounts = gameStateMachine.getPlayerItemCounts();
-
-
             if (notWool(placedMaterial) || !playerItemCounts.containsKey(placedMaterial)) {
                 event.setCancelled(true);
                 player.sendMessage("You can only place building blocks!");
                 return;
             }
-
             playerItemCounts.computeIfPresent(placedMaterial, (key, pair) -> {
                 if (pair.current > 0) {
                     pair.current--; //real time update!!
                     player.getInventory().clear();
                     //give all blocks again
                     for (Map.Entry<Material, GameStateMachine.ItemCountsPair> entryPair : playerItemCounts.entrySet()) {
-
                         if ( placedMaterial.equals(entryPair.getKey()) && entryPair.getValue().current ==  0) {
                             continue;
                         }
-                        player.getInventory().setItem(entryPair.getValue().slot, new ItemStack(entryPair.getKey(), entryPair.getValue().current));
+                        player.getInventory().setItem(entryPair.getValue().slot,
+                                new ItemStack(entryPair.getKey(), entryPair.getValue().current));
                     }
                 } else {
                     event.setCancelled(true);
