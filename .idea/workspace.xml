@@ -5,8 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="362c769f-c0a1-482b-bbed-7ac23ed4e7cd" name="Changes" comment="build master v0.1.0">
+      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/Randomization.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/BlockIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/BlockIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/BuildMaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/BuildMaster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/GameStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/GameStateMachine.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/InGameListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/InGameListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/OutGameListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/GeneralListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/PlayerIOListener.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +117,9 @@
       <workItem from="1701673588098" duration="409000" />
       <workItem from="1705000412654" duration="21339000" />
       <workItem from="1705433106216" duration="36403000" />
-      <workItem from="1705590604409" duration="27516000" />
+      <workItem from="1705590604409" duration="28002000" />
+      <workItem from="1705685090796" duration="7508000" />
+      <workItem from="1705949091200" duration="16071000" />
     </task>
     <task id="LOCAL-00001" summary="1.0.0">
       <created>1700488478827</created>
@@ -190,7 +198,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705620334788</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="build master v0.1.0">
+      <option name="closed" value="true" />
+      <created>1705623259401</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1705623259401</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

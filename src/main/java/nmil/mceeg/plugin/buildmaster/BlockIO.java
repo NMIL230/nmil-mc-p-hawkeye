@@ -24,7 +24,6 @@ public class BlockIO {
         }
     }
     public boolean saveStructureToFile(Location center, String fileName) {
-
         File file = new File(directory, fileName + ".txt");
 
         World world = center.getWorld();

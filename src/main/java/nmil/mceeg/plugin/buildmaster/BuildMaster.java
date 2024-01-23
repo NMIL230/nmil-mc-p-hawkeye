@@ -26,6 +26,14 @@ public class BuildMaster extends JavaPlugin implements CommandExecutor {
     private Location outsidePlateLocation;
 
 
+    private Location gameModeButtonLocation;
+
+
+
+    private Location gameModeSignLocation;
+
+
+
     private BlockIO blockIO;
     private TextDisplay display;
     private GameStateMachine gameStateMachine;
@@ -44,6 +52,8 @@ public class BuildMaster extends JavaPlugin implements CommandExecutor {
             setGoldenPlateLocation(new Location(world, 3765, 123, 4155));
             setOutsideLobbyLocation(new Location(world, 3765, 121, 4133,180,0));
             setOutsidePlateLocation(new Location(world, 3765, 121, 4150));
+            setGameModeButtonLocation(new Location(world,3763,125,4172));
+            setGameModeSignLocation(new Location(world,3763,124,4172));
             int x = 3763; int y = 125; int z = 4171;
             Location[] locations = new Location[10];
             for (int i = 0; i < locations.length; i++) {
@@ -65,9 +75,8 @@ public class BuildMaster extends JavaPlugin implements CommandExecutor {
         playerTag = new HashMap<>();
 
         //getServer().getPluginManager().registerEvents(this, this);
-        getServer().getPluginManager().registerEvents(new PlayerIOListener(this, gameStateMachine), this);
         getServer().getPluginManager().registerEvents(new InGameListener(this, gameStateMachine), this);
-        getServer().getPluginManager().registerEvents(new OutGameListener(this, gameStateMachine), this);
+        getServer().getPluginManager().registerEvents(new GeneralListener(this, gameStateMachine), this);
 
         Objects.requireNonNull(this.getCommand("bm")).setExecutor(this);
 
@@ -232,6 +241,21 @@ public class BuildMaster extends JavaPlugin implements CommandExecutor {
 
     public void setOutsidePlateLocation(Location outsidePlateLocation) {
         this.outsidePlateLocation = outsidePlateLocation;
+    }
+
+    public Location getGameModeButtonLocation() {
+        return gameModeButtonLocation;
+    }
+
+    public void setGameModeButtonLocation(Location RRButtonLocation) {
+        this.gameModeButtonLocation = RRButtonLocation;
+    }
+    public Location getGameModeSignLocation() {
+        return gameModeSignLocation;
+    }
+
+    public void setGameModeSignLocation(Location gameModeSignLocation) {
+        this.gameModeSignLocation = gameModeSignLocation;
     }
 
 }

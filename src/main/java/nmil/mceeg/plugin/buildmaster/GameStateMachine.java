@@ -21,6 +21,15 @@ public class GameStateMachine {
     enum GameState {
         GS0_PreGame, GS1_Load, GS2_Observe, GS3_Build, GS4_Judge, GAME_OVER
     }
+
+    enum GameType {
+        Classical, Random2D, Random3D
+    }
+
+
+
+    private GameType currentGameType;
+
     private BuildMaster plugin;
     private TextDisplay display;
     private  BlockIO blockIO;
@@ -34,6 +43,7 @@ public class GameStateMachine {
         this.blockIO = new BlockIO();
         this.gameRecordIO = new GameRecordIO();
         currentGameState = GameState.GAME_OVER;
+        currentGameType = GameType.Classical;
     }
 
     // Current game state
@@ -65,12 +75,12 @@ public class GameStateMachine {
         this.player = player;
         this.gameRecord = new GameRecord(player.getName());
         this.difficulty = difficulty;
+        //this.currentGameType = gameType;
 
         playerLeft = false;
-
         blockIO.clearArea(plugin.getPlatformCenterLocation());
 
-        display.sendChatToAllPlayers(player.getName() + " joined Build Master, Level: " + difficulty, "green");
+        display.sendChatToAllPlayers(player.getName() + " joined Build Master, " + currentGameType +  " Level: " + difficulty, "green");
 
         currentGameState = GameState.GS0_PreGame;
         countdown = GS0_PreGame_Countdown; // 10 seconds countdown before game start
@@ -111,12 +121,19 @@ public class GameStateMachine {
         if (countdown > 0) {
             if (countdown > 3) {
                 display.displayActionBarToPlayer(player, "Game starts in: " + countdown + " seconds", "green");
+                //RainBow RanDom
             } else {
                 display.displayActionBarToPlayer(player, "Game starts in: " + countdown + " seconds", "red");
             }
             if (countdown == GS0_PreGame_Countdown) {
-                display.displayTitleToPlayer(player, "BUILD MASTER", "Difficulty: " + difficulty, "green");
+                display.displayTitleToPlayer(player, "BUILD MASTER", currentGameType + " Difficulty: " + difficulty, "green");
                 display.sendChatToPlayer(player, "Difficult: " + difficulty + " Game starts in " + countdown + " seconds", "yellow");
+                if(currentGameType == GameType.Random2D) {
+                    Randomization.generateAndSave2DCarpet(plugin.getPlatformCenterLocation(),difficulty);
+                }
+                else if(currentGameType == GameType.Random3D) {
+                    Randomization.generateAndSave3DBlocks(plugin.getPlatformCenterLocation(),difficulty);
+                }
             }
             countdown--;
         } else {
@@ -337,6 +354,13 @@ public class GameStateMachine {
     }
 
     private String mapDifficultyToFileName(int difficulty) {
+        if (currentGameType == GameType.Classical) {
+            return String.valueOf(difficulty);
+        } else if (currentGameType == GameType.Random2D) {
+            return "RR2D";
+        } else if (currentGameType == GameType.Random3D) {
+            return "RR3D";
+        }
         return String.valueOf(difficulty);
     }
 
@@ -381,5 +405,12 @@ public class GameStateMachine {
     }
     public Map<Material, ItemCountsPair> getPlayerItemCounts() {
         return playerItemCounts;
+    }
+    public GameType getCurrentGameType() {
+        return currentGameType;
+    }
+
+    public void setCurrentGameType(GameType currentGameType) {
+        this.currentGameType = currentGameType;
     }
 }

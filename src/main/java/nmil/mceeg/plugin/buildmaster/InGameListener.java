@@ -38,7 +38,7 @@ public class InGameListener implements Listener {
             }
             Material breakedMaterial = event.getBlock().getType();
 
-            if (notWool(breakedMaterial)) {
+            if (notWoolOrCarpet(breakedMaterial)) {
                 event.setCancelled(true);
                 player.sendMessage("You can only break building blocks!");
                 return;
@@ -89,7 +89,7 @@ public class InGameListener implements Listener {
             }
             Material placedMaterial = event.getBlock().getType();
             Map<Material, GameStateMachine.ItemCountsPair> playerItemCounts = gameStateMachine.getPlayerItemCounts();
-            if (notWool(placedMaterial) || !playerItemCounts.containsKey(placedMaterial)) {
+            if (notWoolOrCarpet(placedMaterial) || !playerItemCounts.containsKey(placedMaterial)) {
                 event.setCancelled(true);
                 player.sendMessage("You can only place building blocks!");
                 return;
@@ -116,16 +116,25 @@ public class InGameListener implements Listener {
 
 
     }
-    private boolean notWool(Material material) {
-        return material != Material.WHITE_WOOL && material != Material.ORANGE_WOOL &&
-                material != Material.MAGENTA_WOOL && material != Material.LIGHT_BLUE_WOOL &&
-                material != Material.YELLOW_WOOL && material != Material.LIME_WOOL &&
-                material != Material.PINK_WOOL && material != Material.GRAY_WOOL &&
-                material != Material.LIGHT_GRAY_WOOL && material != Material.CYAN_WOOL &&
-                material != Material.PURPLE_WOOL && material != Material.BLUE_WOOL &&
-                material != Material.BROWN_WOOL && material != Material.GREEN_WOOL &&
-                material != Material.RED_WOOL && material != Material.BLACK_WOOL;
+    private boolean notWoolOrCarpet(Material material) {
+        return !(material == Material.WHITE_WOOL || material == Material.ORANGE_WOOL ||
+                material == Material.MAGENTA_WOOL || material == Material.LIGHT_BLUE_WOOL ||
+                material == Material.YELLOW_WOOL || material == Material.LIME_WOOL ||
+                material == Material.PINK_WOOL || material == Material.GRAY_WOOL ||
+                material == Material.LIGHT_GRAY_WOOL || material == Material.CYAN_WOOL ||
+                material == Material.PURPLE_WOOL || material == Material.BLUE_WOOL ||
+                material == Material.BROWN_WOOL || material == Material.GREEN_WOOL ||
+                material == Material.RED_WOOL || material == Material.BLACK_WOOL ||
+                material == Material.WHITE_CARPET || material == Material.ORANGE_CARPET ||
+                material == Material.MAGENTA_CARPET || material == Material.LIGHT_BLUE_CARPET ||
+                material == Material.YELLOW_CARPET || material == Material.LIME_CARPET ||
+                material == Material.PINK_CARPET || material == Material.GRAY_CARPET ||
+                material == Material.LIGHT_GRAY_CARPET || material == Material.CYAN_CARPET ||
+                material == Material.PURPLE_CARPET || material == Material.BLUE_CARPET ||
+                material == Material.BROWN_CARPET || material == Material.GREEN_CARPET ||
+                material == Material.RED_CARPET || material == Material.BLACK_CARPET);
     }
+
 
     private boolean isInBuildArea(Location blockLocation, Location centerLocation) {
         int radius = 6; // Half of 13 (13x13x13 area)

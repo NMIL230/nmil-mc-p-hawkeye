@@ -1,6 +1,9 @@
 package nmil.mceeg.plugin.buildmaster;
 
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.Sign;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.type.Switch;
 import org.bukkit.event.Listener;
 import org.bukkit.event.EventHandler;
@@ -12,16 +15,26 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.Material;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 
-public class OutGameListener implements Listener {
+import static nmil.mceeg.plugin.buildmaster.GameStateMachine.GameType.Classical;
+
+public class GeneralListener implements Listener {
     private BuildMaster plugin;
     private TextDisplay display;
     private GameStateMachine gameStateMachine;
 
-    public OutGameListener(BuildMaster plugin, GameStateMachine gameStateMachine) {
+    private int isRainbow;
+
+    public GeneralListener(BuildMaster plugin, GameStateMachine gameStateMachine) {
         this.plugin = plugin;
         this.display = new TextDisplay();
         this.gameStateMachine = gameStateMachine;
+        gameStateMachine.setCurrentGameType(GameStateMachine.GameType.Random3D);
+        changeGameModeSign("Random Rainbow","3D");
+        isRainbow = 0;
     }
 
     @EventHandler
@@ -101,17 +114,27 @@ public class OutGameListener implements Listener {
                     } else {
                         display.sendChatToPlayer(player,"Server Operator ONLY","gold");
                     }
-
+                }
+                if (blockLocation.equals(plugin.getGameModeButtonLocation())) {
+                    if (isRainbow == 0) {
+                        gameStateMachine.setCurrentGameType(Classical);
+                        changeGameModeSign("Classical","");
+                        isRainbow = 1;
+                    } else if (isRainbow == 1){
+                        gameStateMachine.setCurrentGameType(GameStateMachine.GameType.Random2D);
+                        changeGameModeSign("Random Rainbow","2D");
+                        isRainbow = 2;
+                    }  else {
+                        gameStateMachine.setCurrentGameType(GameStateMachine.GameType.Random3D);
+                        changeGameModeSign("Random Rainbow","3D");
+                        isRainbow = 0;
+                    }
                 }
                 // Difficulty Selection
                 else {
                     int difficulty = getDifficultyFromLeverLocation(blockLocation);
                     if (difficulty!= 0) {
                         gameStateMachine.setDifficulty(difficulty);
-//                        ((Powerable) blockData).setPowered(ture);
-//                        block.setBlockData(blockData);
-////                        state.update(true, true);
-//                        display.sendChatToPlayer(player,"set false","red");
                         player.teleport(plugin.getPlatformSpawnLocation());
 
                         gameStateMachine.onGame(player, difficulty);
@@ -119,6 +142,33 @@ public class OutGameListener implements Listener {
                 }
             }
         }
+    }
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        if (!player.isOp()) {
+            player.teleport(plugin.getLobbyLocation());
+            plugin.playerTag.computeIfAbsent(player, k -> "regular");
+        } else {
+            plugin.playerTag.put(player, "victor");
+        }
+
+        display.sendChatToPlayer(player,"Build Master: Welcome! Use '/bm help' for a list of commands.","aqua");
+
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+        if (player == gameStateMachine.getPlayer()) {
+            gameStateMachine.endGameOP();
+        }
+
+    }
+
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        event.setRespawnLocation(plugin.getLobbyLocation());
     }
 
     private int getDifficultyFromLeverLocation(Location location) {
@@ -149,5 +199,28 @@ public class OutGameListener implements Listener {
                 material == Material.BAMBOO_WALL_HANGING_SIGN;
 
     }
+
+    public void changeGameModeSign(String s1, String s2) {
+        Location location = plugin.getGameModeSignLocation();
+        Block block = location.getBlock();
+
+        block.setType(Material.CHERRY_WALL_SIGN);
+
+        Sign sign = (Sign) location.getBlock().getState();
+        sign.setLine(0, "Game Mode");
+
+        sign.setLine(2, s1);
+        sign.setLine(3, s2);
+
+
+        BlockData blockData = sign.getBlockData();
+        Directional directional = (Directional) blockData;
+        directional.setFacing(BlockFace.EAST);
+        sign.setBlockData(directional);
+
+        sign.update();
+
+    }
+
 
 }
