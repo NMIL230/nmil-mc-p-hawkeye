@@ -1,0 +1,9 @@
+
+name: BuildMaster
+version: 0.0.1
+main: nmil.mceeg.plugin.buildmaster.BuildMaster
+commands:
+  bm:
+    description: Controls for the BuildMaster plugin
+    usage: /<command> <save|load> <filename>
+api-version: 1.20
