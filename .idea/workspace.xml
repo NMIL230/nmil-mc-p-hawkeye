@@ -4,15 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="362c769f-c0a1-482b-bbed-7ac23ed4e7cd" name="Changes" comment="build master v0.1.0">
-      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/Randomization.java" afterDir="false" />
+    <list default="true" id="362c769f-c0a1-482b-bbed-7ac23ed4e7cd" name="Changes" comment="build master v0.2.0">
+      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/event/BuildMasterEndEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/event/BuildMasterMsgEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/event/BuildMasterStartEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/hawkeye/BMListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/BlockIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/BlockIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/BuildMaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/BuildMaster.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/GameStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/GameStateMachine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/GeneralListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/GeneralListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/InGameListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/InGameListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/OutGameListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/GeneralListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/PlayerIOListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/Randomization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/Randomization.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/TextDisplay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/TextDisplay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/CommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/hawkeye/CommandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/EventListenerCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/hawkeye/EventListenerCallback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/Hawkeye.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/hawkeye/Hawkeye.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/Lag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/hawkeye/Lag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/ObservationSpaceGetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/hawkeye/ObservationSpaceGetter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/PlayerEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/hawkeye/PlayerEventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/hawkeye/WebSocketServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/hawkeye/WebSocketServerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,36 +70,115 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Maven.mc-eeg-spigot-plugin [package].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/labuser/Documents/MC-EEG/nmil-mc-p-hawkeye&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.buildmaster [clean].executor": "Run",
+    "Maven.buildmaster [package].executor": "Run",
+    "Maven.mc-eeg-spigot-plugin [clean].executor": "Run",
+    "Maven.mc-eeg-spigot-plugin [install].executor": "Run",
+    "Maven.mc-eeg-spigot-plugin [org.apache.maven.plugins:maven-install-plugin:3.1.1:install-file].executor": "Run",
+    "Maven.mc-eeg-spigot-plugin [package].executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/labuser/Documents/MC-EEG/nmil-mc-p-buildmaster/src/main/java/nmil/mceeg/plugin/buildmaster",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\labuser\Documents\MC-EEG\nmil-mc-p-buildmaster\src\main\java\nmil\mceeg\plugin\buildmaster" />
       <recent name="$PROJECT_DIR$/src/main/java/nmil/mceeg/backup" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="nmil.mceeg.plugin.event" />
       <recent name="nmil.mceeg.backup" />
       <recent name="nmil.mceeg.plugin" />
     </key>
+  </component>
+  <component name="RunManager" selected="Maven.mc-eeg-spigot-plugin [install:install-file] (1)">
+    <configuration name="mc-eeg-spigot-plugin [install:install-file] (1)" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="install:install-file" />
+                <option value="-Dfile=C:\Users\labuser\Documents\MC-EEG\spigot\1.20.1\plugins\BuildMaster.jar" />
+                <option value="-DgroupId=com.example" />
+                <option value="-DartifactId=BuildMaster" />
+                <option value="-Dversion=1.0.0" />
+                <option value="-Dpackaging=jar" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="mc-eeg-spigot-plugin [install:install-file]" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="install:install-file" />
+                <option value="-Dfile=path/to/BuildMaster.jar" />
+                <option value="-DgroupId=com.example" />
+                <option value="-DartifactId=BuildMaster" />
+                <option value="-Dversion=1.0.0" />
+                <option value="-Dpackaging=jar" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -119,7 +210,8 @@
       <workItem from="1705433106216" duration="36403000" />
       <workItem from="1705590604409" duration="28002000" />
       <workItem from="1705685090796" duration="7508000" />
-      <workItem from="1705949091200" duration="16071000" />
+      <workItem from="1705949091200" duration="28644000" />
+      <workItem from="1706043032518" duration="5822000" />
     </task>
     <task id="LOCAL-00001" summary="1.0.0">
       <created>1700488478827</created>
@@ -206,7 +298,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705623259401</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="build master v0.2.0">
+      <option name="closed" value="true" />
+      <created>1705968042088</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1705968042088</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,6 +320,7 @@
     <MESSAGE value="build master v0.0.1" />
     <MESSAGE value="build master v0.0.2" />
     <MESSAGE value="build master v0.1.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="build master v0.1.0" />
+    <MESSAGE value="build master v0.2.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="build master v0.2.0" />
   </component>
 </project>

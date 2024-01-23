@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>nmil.mc-eeg.mark</groupId>
-    <artifactId>mc-eeg-spigot-plugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>BuildMasterWithHawkeye</artifactId>
+    <version>0.3</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -47,7 +47,6 @@
         </dependency>
     </dependencies>
     <build>
-<!--        <finalName>Hawkeye</finalName>-->
         <finalName>BuildMaster</finalName>
         <plugins>
             <plugin>
