@@ -60,8 +60,16 @@ public class BlockIO {
         }
     }
 
-    public boolean loadStructureFromFile(Location center, String fileName) {
-        File file = new File(directory, fileName + ".txt");
+    public boolean loadStructureFromFile(Location center, String fileName,  String subDirectory) {
+
+        File file;
+        if (subDirectory != null && subDirectory != "") {
+            File path = new File("build_master_saves", subDirectory);
+            file = new File(path, fileName + ".txt");
+        } else {
+            file = new File(directory, fileName + ".txt");
+        }
+
         World world = center.getWorld();
 
         if (world == null || size % 2 == 0) {
@@ -114,11 +122,16 @@ public class BlockIO {
             }
         }
     }
-    public int judge(Location center, String fileName) {
+    public int judge(Location center, String fileName, String subDirectory) {
         int matchCount = 0;
         int totalCount = 0;
-
-        File file = new File(directory, fileName + ".txt");
+        File file;
+        if (subDirectory != null && subDirectory != "") {
+            File path = new File("build_master_saves", subDirectory);
+            file = new File(path, fileName + ".txt");
+        } else {
+            file = new File(directory, fileName + ".txt");
+        }
         World world = center.getWorld();
 
         if (world == null) {
@@ -159,8 +172,14 @@ public class BlockIO {
 
         return totalCount > 0 ? (matchCount * 100 / totalCount) : 0;
     }
-    public Map<Material, GameStateMachine.ItemCountsPair> giveBlocksAndFireworkToPlayer(Player player, String fileName) {
-        File file = new File(directory, fileName + ".txt");
+    public Map<Material, GameStateMachine.ItemCountsPair> giveBlocksAndFireworkToPlayer(Player player, String fileName, String subDirectory) {
+        File file;
+        if (subDirectory != null && subDirectory != "") {
+            File path = new File("build_master_saves", subDirectory);
+            file = new File(path, fileName + ".txt");
+        } else {
+            file = new File(directory, fileName + ".txt");
+        }
         Map<Material, GameStateMachine.ItemCountsPair> ItemCounts = new HashMap<>();
 
         if (!file.exists()) {

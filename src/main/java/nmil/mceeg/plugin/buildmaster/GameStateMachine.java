@@ -9,6 +9,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.Location;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +63,8 @@ public class GameStateMachine {
     private Map<Material, ItemCountsPair> playerItemCounts;
 
     private String filename;
+    private String subDirectory;
+
 
     public static class ItemCountsPair{
         int original;
@@ -79,7 +83,12 @@ public class GameStateMachine {
         this.player = player;
         this.gameRecord = new GameRecord(player.getName());
         this.difficulty = difficulty;
-        this.filename = "";
+        this.filename = null;
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        String timestamp = dateFormat.format(new Date());
+        this.subDirectory =  currentGameType + "_" + difficulty + "_" + player.getName() + "_" + timestamp;
+
         //this.currentGameType = gameType;
 
         playerLeft = false;
@@ -134,13 +143,20 @@ public class GameStateMachine {
                 display.displayActionBarToPlayer(player, "Game starts in: " + countdown + " seconds", "red");
             }
             if (countdown == GS0_PreGame_Countdown) {
-                display.displayTitleToPlayer(player, "BUILD MASTER", currentGameType + " Difficulty: " + difficulty, "green");
-                display.sendChatToPlayer(player, "Build Master " + currentGameType + " Difficult: " + difficulty, "yellow");
                 if(currentGameType == GameType.Random2D) {
-                    filename = Randomization.generateAndSave2DCarpet(plugin.getPlatformCenterLocation(),difficulty,player);
+                    display.displayTitleToPlayer(player, "RAINBOW RANDOM", currentGameType + " Difficulty: " + difficulty, "green");
+                    display.sendChatToPlayer(player, "Rainbow Random " + currentGameType + " Difficult: " + difficulty, "yellow");
+                    filename = Randomization.generateAndSave2DCarpet(plugin.getPlatformCenterLocation(),difficulty,player,subDirectory);
                 }
                 else if(currentGameType == GameType.Random3D) {
-                    filename = Randomization.generateAndSave3DBlocks(plugin.getPlatformCenterLocation(),difficulty,player);
+                    display.displayTitleToPlayer(player, "RAINBOW RANDOM", currentGameType + " Difficulty: " + difficulty, "green");
+                    display.sendChatToPlayer(player, "Rainbow Random " + currentGameType + " Difficult: " + difficulty, "yellow");
+                    filename = Randomization.generateAndSave3DBlocks(plugin.getPlatformCenterLocation(),difficulty,player,subDirectory);
+                } else {
+
+                    display.displayTitleToPlayer(player, "SPEED BUILDER", currentGameType + " Difficulty: " + difficulty, "green");
+                    display.sendChatToPlayer(player, "Speed Builder " + currentGameType + " Difficult: " + difficulty, "yellow");
+                    subDirectory = null;
                 }
             }
             countdown--;
@@ -162,7 +178,7 @@ public class GameStateMachine {
             player.teleport(plugin.getPlatformSpawnLocation());
             playerLeft = false;
             String fileName = mapDifficultyToFileName(difficulty);
-            blockIO.loadStructureFromFile(plugin.getPlatformCenterLocation(), fileName);
+            blockIO.loadStructureFromFile(plugin.getPlatformCenterLocation(), fileName, subDirectory);
             clearPlayerInventory(player);
         }
         else if (countdown == 0) {
@@ -195,7 +211,8 @@ public class GameStateMachine {
     // Logic for handling GS3 phase
     private void handleGS3() {
         if (countdown == GS3_Build_Countdown) {
-            playerItemCounts = blockIO.giveBlocksAndFireworkToPlayer(player, mapDifficultyToFileName(difficulty));
+            playerItemCounts = blockIO.giveBlocksAndFireworkToPlayer(player, mapDifficultyToFileName(difficulty), subDirectory);
+
             display.displayTitleToPlayer(player, "Build!", "Submit: Firework", "green");
             display.sendChatToPlayer(player, "Building phase: Try to replicate the blocks from memory. Use firework to submit.", "yellow");
         }
@@ -216,7 +233,7 @@ public class GameStateMachine {
         countdown = GS4_Judge_Countdown;
 
         display.sendChatToPlayer(player, "Building Submitted", "yellow");
-        this.score = blockIO.judge(plugin.getPlatformCenterLocation(),mapDifficultyToFileName(difficulty));
+        this.score = blockIO.judge(plugin.getPlatformCenterLocation(),mapDifficultyToFileName(difficulty),subDirectory);
 //        display.sendChatToAllPlayers("submitBuild: score: " + score, "gold");
 
         gameRecord.updateLevelRecord(difficulty, score >= 80, score);

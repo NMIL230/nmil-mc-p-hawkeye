@@ -1,5 +1,5 @@
 
-name: BuildMaster
+name: BuildMasterWithHawkeye
 version: 0.0.1
 main: nmil.mceeg.plugin.buildmaster.BuildMaster
 commands:

@@ -139,7 +139,7 @@ public class BuildMaster extends JavaPlugin implements CommandExecutor, Listener
                             display.sendChatToAllPlayers("Structure saved to file: " + fileName + ".txt","green");
                         }
                     } else if (action.equalsIgnoreCase("load")) {
-                        if (blockIO.loadStructureFromFile(this.getPlatformCenterLocation(), fileName)) {
+                        if (blockIO.loadStructureFromFile(this.getPlatformCenterLocation(), fileName, "")) {
                             display.sendChatToAllPlayers("Structure loaded from file: " + fileName + ".txt","green");
                         }
                     } else if (action.equalsIgnoreCase("clear")) {

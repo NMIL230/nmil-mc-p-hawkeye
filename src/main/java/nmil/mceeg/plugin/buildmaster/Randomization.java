@@ -25,42 +25,55 @@ public class Randomization {
     public static String generateFilename(String baseName, int difficulty, String playerName) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         String timestamp = dateFormat.format(new Date());
-        return baseName + "_" + difficulty + "_" + playerName + "_" + timestamp + ".txt";
+        return baseName + "_" + difficulty + "_" + playerName + "_" + timestamp;
     }
 
-    public static String generateAndSave2DCarpet(Location center, int difficulty, Player player) {
+    public static String generateAndSave2DCarpet(Location center, int difficulty, Player player, String directory) {
+
 
         String filename = generateFilename("RR2D", difficulty, player.getName());
+        File path = new File("build_master_saves", directory);
+
+        if (!path.exists()) {
+            path.mkdirs(); // 创建目录及其所有必要的父目录
+        }
+
+        File file = new File(path, filename + ".txt");
 
 
         if (difficulty < 7) {
-            generateAndSave2DCarpet(center, ((difficulty + 1) / 2) + 1, (difficulty + 2) / 3, difficulty, filename);
+            generateAndSave2DCarpet(center, ((difficulty + 1) / 2) + 1, (difficulty + 2) / 3, difficulty, file);
         } else {
-            generateAndSave2DCarpet(center, 4, (difficulty + 2) / 3, difficulty, filename);
+            generateAndSave2DCarpet(center, 4, (difficulty + 2) / 3, difficulty, file);
         }
         return filename;
     }
-    public static String generateAndSave3DBlocks(Location center, int difficulty, Player player) {
+    public static String generateAndSave3DBlocks(Location center, int difficulty, Player player, String directory) {
 
         String filename = generateFilename("RR3D", difficulty, player.getName());
+        File path = new File("build_master_saves", directory);
+
+        if (!path.exists()) {
+            path.mkdirs(); // 创建目录及其所有必要的父目录
+        }
+
+        File file = new File(path, filename + ".txt");
 
         if (difficulty < 7) {
-            generateAndSave3DBlocks(center, ((difficulty + 1) / 2) + 1, (difficulty + 2) / 3, difficulty, filename);
+            generateAndSave3DBlocks(center, ((difficulty + 1) / 2) + 1, (difficulty + 2) / 3, difficulty, file);
         } else {
-            generateAndSave3DBlocks(center, 4, (difficulty + 2) / 3, difficulty, filename);
+            generateAndSave3DBlocks(center, 4, (difficulty + 2) / 3, difficulty, file);
         }
         return filename;
 
     }
-    public static void generateAndSave3DBlocks(Location center, int size, int colorCount, int blockCount, String filename) {
+    public static void generateAndSave3DBlocks(Location center, int size, int colorCount, int blockCount, File file) {
         World world = center.getWorld();
         Random random = new Random();
         List<Material> woolColors = getWoolColors(colorCount);
         Set<Block> blocks = new HashSet<>();
         List<BlockFace> faces = Arrays.asList(BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST, BlockFace.UP, BlockFace.DOWN);
 
-        File directory = new File("build_master_saves");
-        File file = new File(directory, filename + ".txt");
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             int colorIndex = 0;
@@ -133,14 +146,12 @@ public class Randomization {
 
 
 
-    private static void generateAndSave2DCarpet(Location center, int size, int colorCount, int blockCount, String filename) {
+    private static void generateAndSave2DCarpet(Location center, int size, int colorCount, int blockCount, File file) {
         World world = center.getWorld();
         Random random = new Random();
         List<Material> woolColors = getCarpetColors(colorCount);
         Set<Location> usedLocations = new HashSet<>();
 
-        File directory = new File("build_master_saves");
-        File file = new File(directory, filename +  ".txt");
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             int attempts = 0;

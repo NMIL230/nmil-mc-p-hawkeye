@@ -22,7 +22,7 @@ public class BMListener implements Listener {
     @EventHandler
     public void onBuildMasterMsgEvent(BuildMasterMsgEvent event) {
 
-        plugin.getLogger().info("Hawkeye : onBuildMasterMsgEvent");
+        //plugin.getLogger().info("Hawkeye : onBuildMasterMsgEvent");
 
 
         Map<String, Object> msgWrapper = new HashMap<>();
