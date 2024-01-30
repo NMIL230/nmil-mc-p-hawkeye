@@ -45,13 +45,13 @@ public class ObservationSpaceGetter {
                 }
                 break;
             case "high":
-                data.put("Health",(int) player.getHealth());
-                data.put("Hunger", player.getFoodLevel());
+               // data.put("Health",(int) player.getHealth());
+               // data.put("Hunger", player.getFoodLevel());
                 data.put("Location", player.getLocation().toVector());
                 data.put("View", getPlayerView(player));
                 data.put("TargetBlock",getPlayerTargetBlock(player));
-                data.put("TargetEntity",getPlayerTargetEntity(player));
-                data.put("NearbyEntities",getNearbyEntities(player));
+              //  data.put("TargetEntity",getPlayerTargetEntity(player));
+               // data.put("NearbyEntities",getNearbyEntities(player));
                 data.put("Hot-bar",getPlayerHotbar(player));
                 break;
 

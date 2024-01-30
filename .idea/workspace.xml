@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="362c769f-c0a1-482b-bbed-7ac23ed4e7cd" name="Changes" comment="BuildMaster with Hawkeye v0.3.2" />
+    <list default="true" id="362c769f-c0a1-482b-bbed-7ac23ed4e7cd" name="Changes" comment="remove low feq and nearby blocks" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +19,12 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -193,7 +199,7 @@
       <workItem from="1705949091200" duration="28644000" />
       <workItem from="1706043032518" duration="5822000" />
       <workItem from="1706049456928" duration="10368000" />
-      <workItem from="1706562565197" duration="3647000" />
+      <workItem from="1706562565197" duration="3971000" />
     </task>
     <task id="LOCAL-00001" summary="1.0.0">
       <created>1700488478827</created>
@@ -328,7 +334,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706644486364</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="remove low feq and nearby blocks">
+      <option name="closed" value="true" />
+      <created>1706644808393</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1706644808393</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -346,6 +360,7 @@
     <MESSAGE value="BuildMaster with Hawkeye v0.3.0" />
     <MESSAGE value="BuildMaster with Hawkeye v0.3.1" />
     <MESSAGE value="BuildMaster with Hawkeye v0.3.2" />
-    <option name="LAST_COMMIT_MESSAGE" value="BuildMaster with Hawkeye v0.3.2" />
+    <MESSAGE value="remove low feq and nearby blocks" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove low feq and nearby blocks" />
   </component>
 </project>
