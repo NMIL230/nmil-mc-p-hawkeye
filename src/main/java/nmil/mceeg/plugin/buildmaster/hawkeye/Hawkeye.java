@@ -81,9 +81,10 @@ public class Hawkeye {
                 sendPlayerLog(player, observationSpaceGetter.getPlayerObservationSpace(player, "high",null), "PLAYER_LOG_HIGH_FREQUENCY");
             }
         };
-        LOW_FREQUENCY_task.runTaskTimer(plugin, 0L, LOW_UPDATE_RATE); // 20 ticks
+        // LOW_FREQUENCY_task.runTaskTimer(plugin, 0L, LOW_UPDATE_RATE); // 20 ticks
         HIGH_FREQUENCY_task.runTaskTimer(plugin, 0L, HIGH_UPDATE_RATE);  // 1 tick
-        playerTasks.put(player, new BukkitRunnable[]{LOW_FREQUENCY_task, HIGH_FREQUENCY_task});
+        // playerTasks.put(player, new BukkitRunnable[]{LOW_FREQUENCY_task, HIGH_FREQUENCY_task});
+        playerTasks.put(player, new BukkitRunnable[]{HIGH_FREQUENCY_task});
         playerLogCount.put(player, 0L);
     }
 
@@ -98,7 +99,7 @@ public class Hawkeye {
         if (playerTasks.containsKey(player)) {
             BukkitRunnable[] tasks = playerTasks.get(player);
             tasks[0].cancel();
-            tasks[1].cancel();
+            //tasks[1].cancel();
             playerTasks.remove(player);
         }
     }

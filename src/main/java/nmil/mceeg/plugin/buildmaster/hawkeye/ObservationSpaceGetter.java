@@ -72,7 +72,7 @@ public class ObservationSpaceGetter {
                 if (event != null) {
                     data.put("Event", event);
                     data.put("TargetBlock",getPlayerTargetBlock(player));
-                    data.put("NearbyBlocks",getNearbyBlocks(player));
+                    //data.put("NearbyBlocks",getNearbyBlocks(player));
                 }
                 break;
             case "event-item":
