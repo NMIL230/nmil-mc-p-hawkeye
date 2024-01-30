@@ -80,6 +80,9 @@ public class GameStateMachine {
 
     // Method to start the game
     public void onGame(Player player, int difficulty) {
+
+        Bukkit.getServer().getPluginManager().callEvent(new BuildMasterStartEvent("",player));
+
         this.player = player;
         this.gameRecord = new GameRecord(player.getName());
         this.difficulty = difficulty;
@@ -89,20 +92,12 @@ public class GameStateMachine {
         String timestamp = dateFormat.format(new Date());
         this.subDirectory =  currentGameType + "_" + difficulty + "_" + player.getName() + "_" + timestamp;
 
-        //this.currentGameType = gameType;
-
         playerLeft = false;
         blockIO.clearArea(plugin.getPlatformCenterLocation());
-
         display.sendChatToPlayer(player, player.getName() + " joined Build Master, " + currentGameType +  " Level: " + difficulty, "green");
-
-        Bukkit.getServer().getPluginManager().callEvent(new BuildMasterStartEvent("",player));
-
-
         currentGameState = GameState.GS0_PreGame;
         countdown = GS0_PreGame_Countdown; // 10 seconds countdown before game start
         gameTask = Bukkit.getScheduler().runTaskTimer(plugin, this::gameLoop, 20, 20);
-
     }
 
     // Game loop method

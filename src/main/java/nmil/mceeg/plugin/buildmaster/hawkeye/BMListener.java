@@ -7,6 +7,8 @@ import nmil.mceeg.plugin.buildmaster.event.BuildMasterStartEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,8 +26,10 @@ public class BMListener implements Listener {
 
         //plugin.getLogger().info("Hawkeye : onBuildMasterMsgEvent");
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
         Map<String, Object> msgWrapper = new HashMap<>();
+        msgWrapper.put("Time", sdf.format(new Date()));
         msgWrapper.put("msg", event.getMessage());
 
         hawkeye.sendPlayerLog(event.getPlayer(), msgWrapper,"BUILD_MASTER_MSG");

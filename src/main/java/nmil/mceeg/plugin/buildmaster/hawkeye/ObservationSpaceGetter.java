@@ -79,7 +79,7 @@ public class ObservationSpaceGetter {
                 if (event != null) {
                     data.put("Event", event);
                     data.put("Hot-bar",getPlayerHotbar(player));
-                    data.put("Inventory", getSimpleItemStacks(player.getInventory().getContents()));
+                    //data.put("Inventory", getSimpleItemStacks(player.getInventory().getContents()));
                     data.put("Equipments",getPlayerEquipment(player));
                 }
                 break;
@@ -129,20 +129,26 @@ public class ObservationSpaceGetter {
             Map<String, Object> itemData = new HashMap<>();
 
             if (item != null) {
+                itemData.put("slot", i + 1);
                 itemData.put("type", item.getType().toString());
                 itemData.put("amount", item.getAmount());
-            } else {
-                itemData.put("type", "None");
-                itemData.put("amount", 0);
             }
+//            else {
+//                itemData.put("type", "None");
+//                itemData.put("amount", 0);
+//            }
             hotbarItems.add(itemData);
         }
         return hotbarItems;
     }
-    public String getPlayerTargetBlock(Player player) {
+    public Map<String,String> getPlayerTargetBlock(Player player) {
+        Map<String,String> block = new HashMap<>();
         Block targetBlock = player.getTargetBlock(null, hawkeye.getMAX_TARGET_DISTANCE());
         if (targetBlock.getType() != Material.AIR) {
-            return targetBlock.getType().toString().toLowerCase();
+            Location blockLocation = (targetBlock).getLocation();
+            String locationString = "[x=" + blockLocation.getBlockX() + ", y=" + blockLocation.getBlockY() + ", z=" + blockLocation.getBlockZ()+ "]";
+            block.put(targetBlock.getType().toString().toLowerCase(), locationString);
+            return block;
         }
         return null;
     }
@@ -166,15 +172,17 @@ public class ObservationSpaceGetter {
         return null;
     }
 
-    public Set<String> getNearbyBlocks(Player player) {
-        Set<String> blocks = new HashSet<>();
+    public Map<String, String> getNearbyBlocks(Player player) {
+        Map<String,String> blocks = new HashMap<>();
         Location location = player.getLocation();
         int radius = hawkeye.getOBSERVATION_RADIUS();
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
                 for (int z = -radius; z <= radius; z++) {
                     Block block = Objects.requireNonNull(location.getWorld()).getBlockAt(location.add(x, y, z));
-                    blocks.add(((Block) block).getType().toString().toLowerCase());
+                    Location blockLocation = block.getLocation();
+                    String locationString = "[x=" + blockLocation.getBlockX() + ", y=" + blockLocation.getBlockY() + ", z=" + blockLocation.getBlockZ()+ "]";
+                    blocks.put(block.getType().toString().toLowerCase(), locationString);
                 }
             }
         }
