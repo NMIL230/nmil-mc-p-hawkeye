@@ -30,7 +30,7 @@ public class BMListener implements Listener {
 
         Map<String, Object> msgWrapper = new HashMap<>();
         msgWrapper.put("Time", sdf.format(new Date()));
-        msgWrapper.put("gameSate", event.getGameState());
+        msgWrapper.put("gameState", event.getGameState());
         msgWrapper.put("msg", event.getMessage());
 
         hawkeye.sendPlayerLog(event.getPlayer(), msgWrapper,"BUILD_MASTER_MSG");

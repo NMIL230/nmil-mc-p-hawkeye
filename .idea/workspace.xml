@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="362c769f-c0a1-482b-bbed-7ac23ed4e7cd" name="Changes" comment="BM MSG">
-      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/GameStateMachine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/GameStateMachine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/hawkeye/Hawkeye.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/hawkeye/Hawkeye.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/BlockIO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/BlockIO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$GameState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$GameType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$GameType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$ItemCountsPair.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$ItemCountsPair.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/Randomization.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/Randomization.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/TextDisplay.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/TextDisplay.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/event/BuildMasterMsgEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/event/BuildMasterMsgEvent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/BMListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/BMListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/Hawkeye.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/Hawkeye.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,7 +202,7 @@
       <workItem from="1706043032518" duration="5822000" />
       <workItem from="1706049456928" duration="10368000" />
       <workItem from="1706562565197" duration="6910000" />
-      <workItem from="1706722810942" duration="4434000" />
+      <workItem from="1706722810942" duration="5665000" />
     </task>
     <task id="LOCAL-00001" summary="1.0.0">
       <created>1700488478827</created>
@@ -371,7 +361,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706729722331</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="BM MSG">
+      <option name="closed" value="true" />
+      <created>1706730871229</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1706730871229</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
