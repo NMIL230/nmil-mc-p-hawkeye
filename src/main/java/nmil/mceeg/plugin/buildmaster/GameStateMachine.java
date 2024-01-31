@@ -101,7 +101,7 @@ public class GameStateMachine {
         gameTask = Bukkit.getScheduler().runTaskTimer(plugin, this::gameLoop, 20, 20);
 
         Bukkit.getServer().getPluginManager().callEvent(new BuildMasterStartEvent("",player));
-        emitHawkeyeBMEvent("***GAME START***","GS0_PreGame");
+
     }
 
     // Game loop method
@@ -145,20 +145,24 @@ public class GameStateMachine {
                 if(currentGameType == GameType.Random2D) {
                     display.displayTitleToPlayer(player, "RAINBOW RANDOM", currentGameType + " Difficulty: " + difficulty, "green");
                     //display.sendChatToPlayer(player, "Rainbow Random " + currentGameType, "yellow");
-                    filename = Randomization.generateAndSave2DCarpet(plugin.getPlatformCenterLocation(),difficulty,player,subDirectory);        emitHawkeyeBMEvent(player.getName() + " joined Build Master, " + currentGameType ,"GS0_PreGame");
+                    filename = Randomization.generateAndSave2DCarpet(plugin.getPlatformCenterLocation(),difficulty,player,subDirectory);
+                    emitHawkeyeBMEvent("***LEVEL START***","GS0_PreGame");
                     emitHawkeyeBMEvent("***GS0_PreGame***","GS0_PreGame");
                     emitHawkeyeBMEvent("RAINBOW RANDOM " + currentGameType + " Level: " + difficulty + ". Game starts in: "  + countdown + " seconds."
                             ,"GS0_PreGame");
-                    emitHawkeyeBMEvent(Randomization.getAndClearGlobalBlocksInfo(),"GS0_PreGame");
+                    emitHawkeyeBMEvent("The location and type of the random generated " +
+                            "arrangement of blocks in this level are: [" + Randomization.getAndClearGlobalBlocksInfo() + "]","GS0_PreGame");
                 }
                 else if(currentGameType == GameType.Random3D) {
                     display.displayTitleToPlayer(player, "RAINBOW RANDOM", currentGameType + " Difficulty: " + difficulty, "green");
                     //display.sendChatToPlayer(player, "Rainbow Random " + currentGameType, "yellow");
                     filename = Randomization.generateAndSave3DBlocks(plugin.getPlatformCenterLocation(),difficulty,player,subDirectory);
+                    emitHawkeyeBMEvent("***LEVEL START***","GS0_PreGame");
                     emitHawkeyeBMEvent("***GS0_PreGame***","GS0_PreGame");
                     emitHawkeyeBMEvent("RAINBOW RANDOM " + currentGameType + " Level: " + difficulty + ". Game starts in: "  + countdown + " seconds."
                             ,"GS0_PreGame");
-                    emitHawkeyeBMEvent(Randomization.getAndClearGlobalBlocksInfo(),"GS0_PreGame");
+                    emitHawkeyeBMEvent("The location and type of the random generated " +
+                            "arrangement of blocks in this level are: [" + Randomization.getAndClearGlobalBlocksInfo() + "]","GS0_PreGame");
                 } else {
 
                     display.displayTitleToPlayer(player, "SPEED BUILDER", currentGameType + " Difficulty: " + difficulty, "green");
