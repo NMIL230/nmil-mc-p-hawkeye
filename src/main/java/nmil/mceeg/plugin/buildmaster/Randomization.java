@@ -21,13 +21,18 @@ import java.util.Set;
 import java.util.*;
 
 public class Randomization {
+    private static String globalBlocksInfo = "";
 
     public static String generateFilename(String baseName, int difficulty, String playerName) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
         String timestamp = dateFormat.format(new Date());
         return baseName + "_" + difficulty + "_" + playerName + "_" + timestamp;
     }
-
+    public static String getAndClearGlobalBlocksInfo() {
+        String temp = globalBlocksInfo;
+        globalBlocksInfo = "";
+        return temp;
+    }
     public static String generateAndSave2DCarpet(Location center, int difficulty, Player player, String directory) {
 
 
@@ -112,6 +117,9 @@ public class Randomization {
 
                 // Step 5: Write to file
                 writer.write(adjacentBlock.getX() + "," + adjacentBlock.getY() + "," + adjacentBlock.getZ() + "," + woolColors.get(colorIndex % woolColors.size()).name() + "\n");
+                String line = adjacentBlock.getX() + "," + adjacentBlock.getY() + "," + adjacentBlock.getZ() + "," + woolColors.get(colorIndex % woolColors.size()).name();
+                globalBlocksInfo += line + ",";
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -171,6 +179,9 @@ public class Randomization {
                 if (attempts < maxAttempts) {
                     usedLocations.add(randomLocation);
                     writer.write(randomLocation.getBlockX() + "," + randomLocation.getBlockY() + "," + randomLocation.getBlockZ() + "," + woolColor.name() + "\n");
+                    String line = randomLocation.getBlockX() + "," + randomLocation.getBlockY() + "," + randomLocation.getBlockZ() + "," + woolColor.name();
+                    //writer.write(line + "\n");
+                    globalBlocksInfo += line + ",";
                 }
             }
         } catch (IOException e) {

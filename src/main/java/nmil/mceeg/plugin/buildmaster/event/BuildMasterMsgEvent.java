@@ -9,8 +9,15 @@ public class BuildMasterMsgEvent extends Event {
     private final String message;
     private final Player player;
 
+    public String getGameState() {
+        return gameState;
+    }
 
-    public BuildMasterMsgEvent(String message, Player player) {
+    private final String gameState;
+
+
+    public BuildMasterMsgEvent(String message, Player player, String gameState) {
+        this.gameState = gameState;
         this.message = message;
         this.player = player;
     }

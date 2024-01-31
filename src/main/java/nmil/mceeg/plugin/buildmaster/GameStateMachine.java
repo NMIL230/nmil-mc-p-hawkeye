@@ -1,6 +1,7 @@
 package nmil.mceeg.plugin.buildmaster;
 
 import nmil.mceeg.plugin.buildmaster.event.BuildMasterEndEvent;
+import nmil.mceeg.plugin.buildmaster.event.BuildMasterMsgEvent;
 import nmil.mceeg.plugin.buildmaster.event.BuildMasterStartEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -82,6 +83,7 @@ public class GameStateMachine {
     public void onGame(Player player, int difficulty) {
 
         Bukkit.getServer().getPluginManager().callEvent(new BuildMasterStartEvent("",player));
+        emitHawkeyeBMEvent("***GAME START***","GS0_PreGame");
 
         this.player = player;
         this.gameRecord = new GameRecord(player.getName());
@@ -94,7 +96,7 @@ public class GameStateMachine {
 
         playerLeft = false;
         blockIO.clearArea(plugin.getPlatformCenterLocation());
-        display.sendChatToPlayer(player, player.getName() + " joined Build Master, " + currentGameType +  " Level: " + difficulty, "green");
+        display.sendChatToPlayer(player, player.getName() + " joined Build Master, " + currentGameType , "green");
         currentGameState = GameState.GS0_PreGame;
         countdown = GS0_PreGame_Countdown; // 10 seconds countdown before game start
         gameTask = Bukkit.getScheduler().runTaskTimer(plugin, this::gameLoop, 20, 20);
@@ -140,17 +142,25 @@ public class GameStateMachine {
             if (countdown == GS0_PreGame_Countdown) {
                 if(currentGameType == GameType.Random2D) {
                     display.displayTitleToPlayer(player, "RAINBOW RANDOM", currentGameType + " Difficulty: " + difficulty, "green");
-                    display.sendChatToPlayer(player, "Rainbow Random " + currentGameType + " Difficult: " + difficulty, "yellow");
-                    filename = Randomization.generateAndSave2DCarpet(plugin.getPlatformCenterLocation(),difficulty,player,subDirectory);
+                    //display.sendChatToPlayer(player, "Rainbow Random " + currentGameType, "yellow");
+                    filename = Randomization.generateAndSave2DCarpet(plugin.getPlatformCenterLocation(),difficulty,player,subDirectory);        emitHawkeyeBMEvent(player.getName() + " joined Build Master, " + currentGameType ,"GS0_PreGame");
+                    emitHawkeyeBMEvent("***GS0_PreGame***","GS0_PreGame");
+                    emitHawkeyeBMEvent("RAINBOW RANDOM " + currentGameType + " Level: " + difficulty + ". Game starts in: "  + countdown + " seconds."
+                            ,"GS0_PreGame");
+                    emitHawkeyeBMEvent(Randomization.getAndClearGlobalBlocksInfo(),"GS0_PreGame");
                 }
                 else if(currentGameType == GameType.Random3D) {
                     display.displayTitleToPlayer(player, "RAINBOW RANDOM", currentGameType + " Difficulty: " + difficulty, "green");
-                    display.sendChatToPlayer(player, "Rainbow Random " + currentGameType + " Difficult: " + difficulty, "yellow");
+                    //display.sendChatToPlayer(player, "Rainbow Random " + currentGameType, "yellow");
                     filename = Randomization.generateAndSave3DBlocks(plugin.getPlatformCenterLocation(),difficulty,player,subDirectory);
+                    emitHawkeyeBMEvent("***GS0_PreGame***","GS0_PreGame");
+                    emitHawkeyeBMEvent("RAINBOW RANDOM " + currentGameType + " Level: " + difficulty + ". Game starts in: "  + countdown + " seconds."
+                            ,"GS0_PreGame");
+                    emitHawkeyeBMEvent(Randomization.getAndClearGlobalBlocksInfo(),"GS0_PreGame");
                 } else {
 
                     display.displayTitleToPlayer(player, "SPEED BUILDER", currentGameType + " Difficulty: " + difficulty, "green");
-                    display.sendChatToPlayer(player, "Speed Builder " + currentGameType + " Difficult: " + difficulty, "yellow");
+                    //display.sendChatToPlayer(player, "Speed Builder " + currentGameType , "yellow");
                     subDirectory = null;
                 }
             }
@@ -169,18 +179,24 @@ public class GameStateMachine {
 
             gameRecord.addLevelRecord(difficulty);
 
+
             display.sendChatToPlayer(player, "Game start!", "yellow");
             player.teleport(plugin.getPlatformSpawnLocation());
             playerLeft = false;
             String fileName = mapDifficultyToFileName(difficulty);
             blockIO.loadStructureFromFile(plugin.getPlatformCenterLocation(), fileName, subDirectory);
             clearPlayerInventory(player);
+
+            emitHawkeyeBMEvent("***GS1_Load***","GS1_Load");
+            emitHawkeyeBMEvent("Structure loaded, Player teleported to Spawn Location","GS1_Load");
+
+            countdown--;
+
         }
         else if (countdown == 0) {
             currentGameState = GameState.GS2_Observe;
             countdown = GS2_Observe_Countdown;
         }
-        countdown--;
     }
 
 
@@ -190,6 +206,10 @@ public class GameStateMachine {
         if (countdown == GS2_Observe_Countdown) {
             display.displayTitleToPlayer(player, "Observe", "","green");
             display.sendChatToPlayer(player, "Observe Phase: Please observe the blocks and remember their arrangement.", "yellow");
+
+            emitHawkeyeBMEvent("***GS2_Observe***","GS2_Observe");
+            emitHawkeyeBMEvent("Observe Phase: player started observe the blocks and remember their arrangement.","GS2_Observe");
+
         }
         if (countdown > 0) {
             String color = (countdown <= 3) ? "red" : "green";
@@ -210,6 +230,9 @@ public class GameStateMachine {
 
             display.displayTitleToPlayer(player, "Build!", "Submit: Firework", "green");
             display.sendChatToPlayer(player, "Building phase: Try to replicate the blocks from memory. Use firework to submit.", "yellow");
+
+            emitHawkeyeBMEvent("***GS3_Build***","GS3_Build");
+            emitHawkeyeBMEvent("Building phase: player try to replicate the blocks from memory. Use firework to submit.","GS3_Build");
         }
         if (countdown > 0) {
             String color = (countdown <= 5) ? "red" : "green";
@@ -228,6 +251,10 @@ public class GameStateMachine {
         countdown = GS4_Judge_Countdown;
 
         display.sendChatToPlayer(player, "Building Submitted", "yellow");
+
+        emitHawkeyeBMEvent("***GS4_Judge***","GS4_Judge");
+        emitHawkeyeBMEvent("Judge phase: Building Submitted, Game is calculating the score, then player will entry the next level.","GS4_Judge");
+
         this.score = blockIO.judge(plugin.getPlatformCenterLocation(),mapDifficultyToFileName(difficulty),subDirectory);
 //        display.sendChatToAllPlayers("submitBuild: score: " + score, "gold");
 
@@ -304,10 +331,16 @@ public class GameStateMachine {
                 } else {
                     display.displayTitleToPlayer(player, "Game Over", "Best Score: Difficulty " + gameRecord.getHighestLevel(), "red");
                     display.sendChatToPlayer(player,player.getName() + " finished Build Master, Best Score: Difficulty " + gameRecord.getHighestLevel(), "green");
+                    display.sendChatToPlayer(player,"Game Over", "yellow");
+
                 }
 
                 // record
                 gameRecordIO.saveRecordToFile(gameRecord);
+
+                emitHawkeyeBMEvent("***GAME_OVER***","GAME_OVER");
+                emitHawkeyeBMEvent("Game Over, Player left.","GAME_OVER");
+
                 Bukkit.getServer().getPluginManager().callEvent(new BuildMasterEndEvent("",player));
 
 
@@ -395,6 +428,13 @@ public class GameStateMachine {
             player.getInventory().setExtraContents(null);
         }
     }
+
+    private void emitHawkeyeBMEvent(String msg, String state) {
+        BuildMasterMsgEvent event = new BuildMasterMsgEvent(msg,getPlayer(),state);
+        Bukkit.getServer().getPluginManager().callEvent(event);
+
+    }
+
     public Player getPlayer() {
         return player;
     }

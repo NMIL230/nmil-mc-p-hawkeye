@@ -40,7 +40,7 @@ public class TextDisplay {
     public void sendChatToPlayer(Player player, String message, String color) {
         String colorCode = getColorCode(color);
         player.sendMessage(colorCode + message);
-        emitEvent(message,player);
+        //emitEvent(message,player);
     }
 
     public void displayTitleToPlayer(Player player, String title, String subtitle, String color) {
@@ -52,10 +52,6 @@ public class TextDisplay {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(colorCode + message));
     }
 
-    private void emitEvent(String msg,Player player) {
-        BuildMasterMsgEvent event = new BuildMasterMsgEvent(msg,player);
-        Bukkit.getServer().getPluginManager().callEvent(event);
 
-    }
 }
 

@@ -52,7 +52,7 @@ public class ObservationSpaceGetter {
                 data.put("TargetBlock",getPlayerTargetBlock(player));
               //  data.put("TargetEntity",getPlayerTargetEntity(player));
                // data.put("NearbyEntities",getNearbyEntities(player));
-                data.put("Hot-bar",getPlayerHotbar(player));
+                //data.put("Hot-bar",getPlayerHotbar(player));
                 break;
 
             case "low":

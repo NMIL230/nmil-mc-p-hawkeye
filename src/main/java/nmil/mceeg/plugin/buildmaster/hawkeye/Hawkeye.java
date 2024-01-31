@@ -28,7 +28,7 @@ public class Hawkeye {
 
     private Long LOW_UPDATE_RATE = 20L;
 
-    private Long HIGH_UPDATE_RATE = 1L;
+    private Long HIGH_UPDATE_RATE = 10L;
 
     private long DELAY = 0L;
 
