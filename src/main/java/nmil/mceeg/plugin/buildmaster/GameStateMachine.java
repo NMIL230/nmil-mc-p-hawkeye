@@ -82,8 +82,7 @@ public class GameStateMachine {
     // Method to start the game
     public void onGame(Player player, int difficulty) {
 
-        Bukkit.getServer().getPluginManager().callEvent(new BuildMasterStartEvent("",player));
-        emitHawkeyeBMEvent("***GAME START***","GS0_PreGame");
+
 
         this.player = player;
         this.gameRecord = new GameRecord(player.getName());
@@ -100,6 +99,9 @@ public class GameStateMachine {
         currentGameState = GameState.GS0_PreGame;
         countdown = GS0_PreGame_Countdown; // 10 seconds countdown before game start
         gameTask = Bukkit.getScheduler().runTaskTimer(plugin, this::gameLoop, 20, 20);
+
+        Bukkit.getServer().getPluginManager().callEvent(new BuildMasterStartEvent("",player));
+        emitHawkeyeBMEvent("***GAME START***","GS0_PreGame");
     }
 
     // Game loop method

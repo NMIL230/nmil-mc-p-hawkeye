@@ -40,7 +40,7 @@ public class Randomization {
         File path = new File("build_master_saves", directory);
 
         if (!path.exists()) {
-            path.mkdirs(); // 创建目录及其所有必要的父目录
+            path.mkdirs();
         }
 
         File file = new File(path, filename + ".txt");
@@ -59,7 +59,7 @@ public class Randomization {
         File path = new File("build_master_saves", directory);
 
         if (!path.exists()) {
-            path.mkdirs(); // 创建目录及其所有必要的父目录
+            path.mkdirs();
         }
 
         File file = new File(path, filename + ".txt");
@@ -118,7 +118,7 @@ public class Randomization {
                 // Step 5: Write to file
                 writer.write(adjacentBlock.getX() + "," + adjacentBlock.getY() + "," + adjacentBlock.getZ() + "," + woolColors.get(colorIndex % woolColors.size()).name() + "\n");
                 String line = adjacentBlock.getX() + "," + adjacentBlock.getY() + "," + adjacentBlock.getZ() + "," + woolColors.get(colorIndex % woolColors.size()).name();
-                globalBlocksInfo += line + ",";
+                globalBlocksInfo += line + "; ";
 
             }
         } catch (IOException e) {
@@ -181,7 +181,7 @@ public class Randomization {
                     writer.write(randomLocation.getBlockX() + "," + randomLocation.getBlockY() + "," + randomLocation.getBlockZ() + "," + woolColor.name() + "\n");
                     String line = randomLocation.getBlockX() + "," + randomLocation.getBlockY() + "," + randomLocation.getBlockZ() + "," + woolColor.name();
                     //writer.write(line + "\n");
-                    globalBlocksInfo += line + ",";
+                    globalBlocksInfo += line + "; ";
                 }
             }
         } catch (IOException e) {

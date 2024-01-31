@@ -173,7 +173,7 @@ public class Hawkeye {
                 sendServerPerformanceData();
             }
         };
-        dataSendTask.runTaskTimer(plugin, 0L, LOW_UPDATE_RATE);
+        dataSendTask.runTaskTimer(plugin, 0L, 60L);
     }
 
     private void sendServerPerformanceData()  {
