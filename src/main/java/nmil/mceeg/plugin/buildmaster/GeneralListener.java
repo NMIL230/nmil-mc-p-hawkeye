@@ -1,5 +1,7 @@
 package nmil.mceeg.plugin.buildmaster;
 
+import nmil.mceeg.plugin.buildmaster.event.BuildMasterEndEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.block.data.BlockData;
@@ -161,8 +163,14 @@ public class GeneralListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         if (player == gameStateMachine.getPlayer()) {
-            gameStateMachine.endGameOP();
+            if( gameStateMachine.getCurrentGameState() != GameStateMachine.GameState.GAME_OVER) {
+                gameStateMachine.endGameOP();
+                Bukkit.getServer().getPluginManager().callEvent(new BuildMasterEndEvent("",player));
+            }
+
+
         }
+
 
     }
 

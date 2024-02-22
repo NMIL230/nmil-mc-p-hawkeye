@@ -92,7 +92,7 @@ public class Hawkeye {
         Long currentValue = 0L;
         if (playerLogCount.containsKey(player)) {
             currentValue = playerLogCount.get(player);
-            playerLogCount.remove(player);
+            //playerLogCount.remove(player);
         }
         plugin.getLogger().info("Hawkeye: " + player.getName() + " left the game, sent " + currentValue + "Logs");
 
@@ -210,17 +210,17 @@ public class Hawkeye {
         sendWebSocketMessage(json);
     }
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        //Bukkit.getServer().getPluginManager().callEvent(new BuildMasterStartEvent("PlayerJoinEvent", event.getPlayer()));
-        plugin.getLogger().info("Hawkeye: onPlayerJoin");
-
-    }
-
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-
-    }
+//    @EventHandler
+//    public void onPlayerJoin(PlayerJoinEvent event) {
+//        //Bukkit.getServer().getPluginManager().callEvent(new BuildMasterStartEvent("PlayerJoinEvent", event.getPlayer()));
+//        plugin.getLogger().info("Hawkeye: onPlayerJoin");
+//
+//    }
+//
+//    @EventHandler
+//    public void onPlayerQuit(PlayerQuitEvent event) {
+//
+//    }
 
     public void onDisable() {
         plugin.getLogger().info("Hawkeye: onDisable is called!");

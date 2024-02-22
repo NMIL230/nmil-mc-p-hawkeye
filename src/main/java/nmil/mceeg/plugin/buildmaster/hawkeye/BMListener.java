@@ -29,7 +29,8 @@ public class BMListener implements Listener {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
         Map<String, Object> msgWrapper = new HashMap<>();
-        msgWrapper.put("Time", sdf.format(new Date()));
+        msgWrapper.put("JavaTime", sdf.format(new Date()));
+        msgWrapper.put("GameTime", event.getPlayer().getWorld().getTime());
         msgWrapper.put("gameState", event.getGameState());
         msgWrapper.put("msg", event.getMessage());
 
@@ -61,13 +62,17 @@ public class BMListener implements Listener {
         Map<String, Object> msgWrapper = new HashMap<>();
         msgWrapper.put("title", "BUILD_MASTER_END");
         msgWrapper.put("data", event.getPlayer().getName());
+
         if (hawkeye.playerLogCount.containsKey(event.getPlayer())) {
             Long currentValue = hawkeye.playerLogCount.get(event.getPlayer());
             msgWrapper.put("total_log", currentValue);
         }
+        hawkeye.playerLogCount.remove(event.getPlayer());
+
         Gson gson = new Gson();
         String json = gson.toJson(msgWrapper);
         hawkeye.sendWebSocketMessage(json);
+
     }
 
 }
