@@ -4,39 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="362c769f-c0a1-482b-bbed-7ac23ed4e7cd" name="Changes" comment="BM MSG">
+    <list default="true" id="362c769f-c0a1-482b-bbed-7ac23ed4e7cd" name="Changes" comment="before publish">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/GeneralListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/nmil/mceeg/plugin/buildmaster/GeneralListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/BlockIO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/BlockIO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/BuildMaster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/BuildMaster.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameRecord$LevelRecord.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameRecord$LevelRecord.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameRecord.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameRecord.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameRecordIO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameRecordIO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$GameState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$GameType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$GameType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$ItemCountsPair.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine$ItemCountsPair.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GameStateMachine.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GeneralListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/GeneralListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/InGameListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/InGameListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/Randomization.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/Randomization.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/TextDisplay.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/TextDisplay.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/event/BuildMasterEndEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/event/BuildMasterEndEvent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/event/BuildMasterMsgEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/event/BuildMasterMsgEvent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/event/BuildMasterStartEvent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/event/BuildMasterStartEvent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/BMListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/BMListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/CommandController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/CommandController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/Hawkeye$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/Hawkeye$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/Hawkeye$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/Hawkeye$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/Hawkeye$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/Hawkeye$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/Hawkeye.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/Hawkeye.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/Lag.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/Lag.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/ObservationSpaceGetter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/ObservationSpaceGetter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/PlayerEventListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/PlayerEventListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/WebSocketServerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/nmil/mceeg/plugin/buildmaster/hawkeye/WebSocketServerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +38,7 @@
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="87d14f9d-3b4e-4601-b5c7-eeaa089e09ed" />
+        <option name="accountId" value="d52910a1-ad84-425d-947c-b6b4b34dc3ef" />
         <option name="url" value="https://github.com/NMIL230/nmil-mc-p-hawkeye.git" />
       </UrlAndAccount>
     </option>
@@ -420,7 +389,31 @@
       <option name="project" value="LOCAL" />
       <updated>1706737642696</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="before publish">
+      <option name="closed" value="true" />
+      <created>1709665003366</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1709665003366</updated>
+    </task>
+    <task id="LOCAL-00025" summary="before publish">
+      <option name="closed" value="true" />
+      <created>1709665058361</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1709665058361</updated>
+    </task>
+    <task id="LOCAL-00026" summary="before publish">
+      <option name="closed" value="true" />
+      <created>1709665097125</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1709665097125</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -451,6 +444,7 @@
     <MESSAGE value="BuildMaster with Hawkeye v0.3.2" />
     <MESSAGE value="remove low feq and nearby blocks" />
     <MESSAGE value="BM MSG" />
-    <option name="LAST_COMMIT_MESSAGE" value="BM MSG" />
+    <MESSAGE value="before publish" />
+    <option name="LAST_COMMIT_MESSAGE" value="before publish" />
   </component>
 </project>
