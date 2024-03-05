@@ -155,7 +155,7 @@ public class GeneralListener implements Listener {
             plugin.playerTag.put(player, "victor");
         }
 
-        player.sendMessage("§bBuild Master: Welcome! Use '/bm help' for a list of commands.");
+        player.sendMessage("§bBuild Master(Arch): Welcome! Use '/bm help' for a list of commands.");
 
     }
 

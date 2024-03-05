@@ -47,14 +47,14 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>BuildMasterWithHawkeye</finalName>
+        <finalName>BuildMasterWithHawkeye-Arch</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <outputDirectory>C:\Users\labuser\Documents\MC-EEG\spigot\1.20.1\plugins</outputDirectory>
+                    <outputDirectory>/home/mark/Documents/Spigot/1.20.1/plugins/</outputDirectory>
                     <!--custom jar file outputDirectory !!-->
                 </configuration>
             </plugin>
