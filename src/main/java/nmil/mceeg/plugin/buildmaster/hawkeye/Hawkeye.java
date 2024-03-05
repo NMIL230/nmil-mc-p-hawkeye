@@ -34,7 +34,7 @@ public class Hawkeye {
 
     private Map<Player, BukkitRunnable[]> playerTasks = new HashMap<>();
     Map<Player, Long> playerLogCount = new HashMap<>();
-    //private long playerLogCount = 0L;
+    //private long playerLogCount = 0L;a
 
     private WebSocketServerController wsServerController;
     private ObservationSpaceGetter observationSpaceGetter;
