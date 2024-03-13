@@ -3,12 +3,14 @@ package nmil.mceeg.plugin.buildmaster.hawkeye;
 import nmil.mceeg.plugin.buildmaster.BuildMaster;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 
 import java.text.SimpleDateFormat;
@@ -50,6 +52,7 @@ public class ObservationSpaceGetter {
                 data.put("Location", player.getLocation().toVector());
                 data.put("View", getPlayerView(player));
                 data.put("TargetBlock",getPlayerTargetBlock(player));
+                data.put("RayTrace", getPlayerTargetBlockExactLocation(player));
               //  data.put("TargetEntity",getPlayerTargetEntity(player));
                // data.put("NearbyEntities",getNearbyEntities(player));
                 //data.put("Hot-bar",getPlayerHotbar(player));
@@ -100,6 +103,28 @@ public class ObservationSpaceGetter {
         }
         return data;
     }
+    public Vector getPlayerTargetBlockExactLocation(Player player) {
+        World world = player.getWorld();
+        Location eyeLocation = player.getEyeLocation();
+        Vector direction = eyeLocation.getDirection();
+        double maxDistance = hawkeye.getMAX_TARGET_DISTANCE();
+
+        // 检查玩家位置是否在世界的加载范围内
+        if (!world.isChunkLoaded(eyeLocation.getBlockX() >> 4, eyeLocation.getBlockZ() >> 4)) {
+            // 如果玩家所在的区块未加载，可以返回null或是一个默认值
+            return null; // 或者 new Vector(0, 0, 0) 作为默认值
+        }
+
+        RayTraceResult result = world.rayTraceBlocks(eyeLocation, direction, maxDistance);
+
+        if (result != null && result.getHitBlock() != null) {
+            Location hitLocation = result.getHitPosition().toLocation(world);
+            return hitLocation.toVector();
+        }
+        // 如果没有命中任何方块或者其他原因导致结果为null，则返回null或默认值
+        return null; // 或者 new Vector(0, 0, 0) 作为默认值
+    }
+
 
     public Map<String, Float> getPlayerView(Player player) {
         Map<String, Float> view = new HashMap<>();

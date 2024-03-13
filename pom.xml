@@ -54,7 +54,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <outputDirectory>/home/mark/Documents/Spigot/1.20.1/plugins/</outputDirectory>
+                    <outputDirectory>/home/mark/Documents/Spigot/1.20.1-BM/plugins/</outputDirectory>
                     <!--custom jar file outputDirectory !!-->
                 </configuration>
             </plugin>

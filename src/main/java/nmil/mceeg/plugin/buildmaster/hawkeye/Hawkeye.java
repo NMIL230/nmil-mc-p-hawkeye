@@ -24,7 +24,7 @@ public class Hawkeye {
     private BuildMaster plugin;
 
     private int OBSERVATION_RADIUS = 3;
-    private int MAX_TARGET_DISTANCE = 5;
+    private int MAX_TARGET_DISTANCE = 20;
 
     private Long LOW_UPDATE_RATE = 20L;
 
@@ -111,6 +111,7 @@ public class Hawkeye {
         wsServerController.startServer();
     }
     void sendPlayerLog(Player player, Map<String, Object> data, String type) {
+
         Map<String, Object> msgWrapper = new HashMap<>();
         msgWrapper.put("title", type);
 
@@ -131,6 +132,8 @@ public class Hawkeye {
         String json = gson.toJson(msgWrapper);
 
         sendWebSocketMessage(json);
+        //plugin.getLogger().info("Hawkeye : sendPlayerLog" + json);
+
     }
 
 
